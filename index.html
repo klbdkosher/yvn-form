@@ -1,31 +1,583 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Daily YVN Inspection Form — KLBD</title><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>:root{--navy:#003868;--teal:#32A0B0;--orange:#F26C23;--bg:#F6F6FF;--white:#ffffff;--text:#1a1a2e;--muted:#6b7280;--border:#d1d5db;--error:#dc2626;--radius:10px;--shadow:0 2px 12px rgba(0,56,104,0.10)}*{box-sizing:border-box;margin:0;padding:0}body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:0 0 60px}.header{background:var(--navy);padding:20px 24px 18px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,0.18)}.header-logo{width:44px;height:44px;background:var(--white);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}.header-text h1{font-family:'DM Serif Display',serif;font-size:18px;color:var(--white);line-height:1.2}.header-text p{font-size:12px;color:var(--teal);font-weight:500;letter-spacing:0.04em;text-transform:uppercase;margin-top:1px}.progress-wrap{background:var(--navy);padding:0 24px 16px}.progress-bar-bg{background:rgba(255,255,255,0.15);border-radius:99px;height:4px;overflow:hidden}.progress-bar-fill{height:100%;background:var(--teal);border-radius:99px;transition:width 0.4s cubic-bezier(.4,0,.2,1)}.progress-label{font-size:11px;color:rgba(255,255,255,0.55);margin-top:6px;text-align:right;letter-spacing:0.03em}.section{display:none;padding:28px 20px 0;max-width:600px;margin:0 auto;animation:fadeIn 0.3s ease}.section.active{display:block}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.section-eyebrow{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}.section-title{font-family:'DM Serif Display',serif;font-size:26px;color:var(--navy);line-height:1.25;margin-bottom:22px}.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:14px}.card-label{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:6px}.required-dot{width:6px;height:6px;background:var(--orange);border-radius:50%;display:inline-block;flex-shrink:0}.card-hint{font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.5}.optional-tag{font-size:11px;font-weight:500;color:var(--muted);background:#f3f4f6;border-radius:4px;padding:2px 6px;margin-left:6px}input[type="text"],input[type="email"],input[type="time"],input[type="number"],input[type="date"],textarea,select{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text);background:#fafafa;transition:border-color 0.2s,box-shadow 0.2s;appearance:none;-webkit-appearance:none}input:focus,textarea:focus,select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(50,160,176,0.12);background:#fff}textarea{resize:vertical;min-height:90px;line-height:1.5}.time-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.time-field label{font-size:12px;font-weight:600;color:var(--muted);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.05em}.options-list{display:flex;flex-direction:column;gap:8px}.option-item{display:flex;align-items:center;gap:10px;padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;transition:border-color 0.2s,background 0.2s;background:#fafafa;user-select:none}.option-item:hover{border-color:var(--teal);background:rgba(50,160,176,0.04)}.option-item.selected{border-color:var(--teal);background:rgba(50,160,176,0.08)}.option-item input[type="radio"]{width:18px;height:18px;accent-color:var(--teal);cursor:pointer;flex-shrink:0}.option-item span{font-size:14px;color:var(--text);flex:1}.estab-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}@media (max-width:400px){.estab-grid{grid-template-columns:1fr}}.estab-item{display:flex;align-items:center;gap:8px;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;background:#fafafa;transition:border-color 0.2s,background 0.2s;user-select:none}.estab-item:hover{border-color:var(--teal);background:rgba(50,160,176,0.04)}.estab-item.selected{border-color:var(--teal);background:rgba(50,160,176,0.08)}.estab-item input[type="checkbox"]{width:16px;height:16px;accent-color:var(--teal);cursor:pointer;flex-shrink:0}.estab-item span{font-size:13px;color:var(--text)}.info-banner{background:rgba(50,160,176,0.08);border-left:3px solid var(--teal);border-radius:6px;padding:10px 14px;font-size:13px;color:var(--navy);margin-bottom:16px;line-height:1.5}.btn-row{display:flex;gap:10px;padding:24px 20px 0;max-width:600px;margin:0 auto}.btn{flex:1;padding:14px 20px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;border:none;cursor:pointer;transition:transform 0.15s,box-shadow 0.15s,opacity 0.15s}.btn:active{transform:scale(0.98)}.btn-primary{background:var(--navy);color:var(--white);box-shadow:0 4px 14px rgba(0,56,104,0.25)}.btn-primary:hover{box-shadow:0 6px 18px rgba(0,56,104,0.32)}.btn-primary:disabled{opacity:0.6;cursor:not-allowed}.btn-secondary{background:var(--white);color:var(--navy);border:1.5px solid var(--border);flex:0 0 auto;padding:14px 18px}.field-error{font-size:12px;color:var(--error);margin-top:6px;display:none}.field-error.show{display:block}.submitting-overlay{display:none;position:fixed;inset:0;background:rgba(0,56,104,0.75);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:16px}.submitting-overlay.active{display:flex}.spinner{width:44px;height:44px;border:3px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.submitting-overlay p{color:white;font-size:15px;font-weight:500}.success-screen{display:none;padding:40px 24px;max-width:600px;margin:0 auto;text-align:center;animation:fadeIn 0.4s ease}.success-screen.active{display:block}.success-icon{width:72px;height:72px;background:rgba(22,163,74,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}.success-screen h2{font-family:'DM Serif Display',serif;font-size:28px;color:var(--navy);margin-bottom:10px}.success-screen>p{color:var(--muted);font-size:15px;line-height:1.6;margin-bottom:24px}.summary-box{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;text-align:left;margin-bottom:24px}.summary-box h3{font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}.summary-row{display:flex;justify-content:space-between;align-items:flex-start;padding:7px 0;border-bottom:1px solid #f3f4f6;font-size:14px;gap:12px}.summary-row:last-child{border-bottom:none}.summary-row .s-label{color:var(--muted);flex-shrink:0}.summary-row .s-value{color:var(--text);font-weight:500;text-align:right}.btn-new{width:100%;padding:14px;background:var(--navy);color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 4px 14px rgba(0,56,104,0.25)}.submit-error{max-width:600px;margin:14px auto 0;padding:0 20px;font-size:13px;color:var(--error);display:none;text-align:center}.submit-error.show{display:block}</style></head><body><div class="submitting-overlay" id="submittingOverlay"><div class="spinner"></div><p>Submitting your report…</p></div><div class="header"><div class="header-logo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="6" fill="#003868"/><text x="16" y="22" font-family="serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">K</text></svg></div><div class="header-text"><h1>Daily YVN Inspection</h1><p>KLBD — Kashrut Division</p></div></div><div class="progress-wrap"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar" style="width:12.5%"></div></div><div class="progress-label" id="progressLabel">Step 1 of 8</div></div><div class="section active" id="section1"><div class="section-eyebrow">Getting Started</div><div class="section-title">Date &amp; Inspector</div><div class="card"><div class="card-label"><span class="required-dot"></span> Date</div><input type="date" id="fieldDate"><div class="field-error" id="errDate">Please select a date.</div></div><div class="card"><div class="card-label"><span class="required-dot"></span> Your Name</div><div class="options-list" id="nameOptions"><label class="option-item" onclick="selectName(this,'Rabbi Hillel Gruber')"><input type="radio" name="name" value="Rabbi Hillel Gruber"> <span>Rabbi Hillel Gruber</span></label><label class="option-item" onclick="selectName(this,'Rabbi Avromi Kahan')"><input type="radio" name="name" value="Rabbi Avromi Kahan"> <span>Rabbi Avromi Kahan</span></label><label class="option-item" onclick="selectName(this,'Rabbi Shlomo Katanka')"><input type="radio" name="name" value="Rabbi Shlomo Katanka"> <span>Rabbi Shlomo Katanka</span></label><label class="option-item" onclick="selectName(this,'Rabbi Michael Kedourie')"><input type="radio" name="name" value="Rabbi Michael Kedourie"> <span>Rabbi Michael Kedourie</span></label><label class="option-item" onclick="selectName(this,'Rabbi Elie Schoemann')"><input type="radio" name="name" value="Rabbi Elie Schoemann"> <span>Rabbi Elie Schoemann</span></label><label class="option-item" onclick="selectName(this,'Rabbi Hillel Simon')"><input type="radio" name="name" value="Rabbi Hillel Simon"> <span>Rabbi Hillel Simon</span></label><label class="option-item" onclick="selectName(this,'Rabbi AR Cohen')"><input type="radio" name="name" value="Rabbi AR Cohen"> <span>Rabbi AR Cohen</span></label><label class="option-item" onclick="selectName(this,'other')"><input type="radio" name="name" value="other"> <span>Other</span></label></div><input type="text" id="otherNameInput" placeholder="Enter your name" style="display:none;margin-top:10px;"><div class="field-error" id="errName">Please select or enter your name.</div></div><div class="card"><div class="card-label"><span class="required-dot"></span> Your Email Address</div><div class="card-hint">A copy of your submission will be sent to this address.</div><input type="email" id="fieldEmail" placeholder="you@example.com"><div class="field-error" id="errEmail">Please enter a valid email address.</div></div></div><div class="section" id="section2"><div class="section-eyebrow">Working Time</div><div class="section-title">Hours &amp; Breaks</div><div class="card"><div class="card-label"><span class="required-dot"></span> Start &amp; End Time</div><div class="time-row"><div class="time-field"><label>Start Time</label><input type="time" id="fieldStartTime"></div><div class="time-field"><label>End Time</label><input type="time" id="fieldEndTime"></div></div><div class="field-error" id="errTimes">Please enter both start and end times.</div></div><div class="card"><div class="card-label"><span class="required-dot"></span> Breaks Taken</div><div class="options-list" id="breaksOptions"><label class="option-item" onclick="selectBreak(this,'None')"><input type="radio" name="breaks" value="None"> <span>None</span></label><label class="option-item" onclick="selectBreak(this,'15 minutes')"><input type="radio" name="breaks" value="15 minutes"> <span>15 minutes</span></label><label class="option-item" onclick="selectBreak(this,'30 minutes')"><input type="radio" name="breaks" value="30 minutes"> <span>30 minutes</span></label><label class="option-item" onclick="selectBreak(this,'1 hour')"><input type="radio" name="breaks" value="1 hour"> <span>1 hour</span></label><label class="option-item" onclick="selectBreak(this,'Longer')"><input type="radio" name="breaks" value="Longer"> <span>Longer</span></label></div><div class="field-error" id="errBreaks">Please select a break option.</div></div><div class="card"><div class="card-label">Mileage <span class="optional-tag">Optional</span></div><div class="card-hint">Enter daily total mileage if you travelled by car today.</div><input type="number" id="fieldMileage" placeholder="e.g. 24" min="0" step="1"></div><div class="card"><div class="card-label">Issues or Exceptions <span class="optional-tag">Optional</span></div><div class="card-hint">Any issues affecting your working time today.</div><textarea id="fieldIssues" placeholder="Describe any issues or exceptions here…"></textarea></div></div><div class="section" id="section3"><div class="section-eyebrow">Rabbi AR Cohen</div><div class="section-title">Establishments Visited</div><div class="info-banner">Tick any establishments you visited today that are on your less-frequent rounds.</div><div class="card"><div class="card-label">Establishments visited today <span class="optional-tag">Optional</span></div><div class="estab-grid"><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="cohenVisited" value="Alpine"> <span>Alpine</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="cohenVisited" value="Chocolate Fantasy Shop"> <span>Choc. Fantasy Shop</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="cohenVisited" value="Chocolate Fantasy Factory"> <span>Choc. Fantasy Factory</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="cohenVisited" value="Goldmans"> <span>Goldmans</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="cohenVisited" value="Martin Spencer"> <span>Martin Spencer</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="cohenVisited" value="Maxi Goldstein"> <span>Maxi Goldstein</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="cohenVisited" value="Renbake"> <span>Renbake</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="cohenVisited" value="Snowcrest"> <span>Snowcrest</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="cohenVisited" value="So Real"> <span>So Real</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="cohenVisited" value="Tasti Pizza St Hill"> <span>Tasti Pizza St Hill</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="cohenVisited" value="Tasti Pizza"> <span>Tasti Pizza</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="cohenVisited" value="Woodbury Down"> <span>Woodbury Down</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="cohenVisited" value="World of Nuts"> <span>World of Nuts</span></label></div><input type="text" id="cohenOther" placeholder="Other establishment…" style="margin-top:10px;"></div></div><div class="section" id="section4"><div class="section-eyebrow">Rabbi Gruber</div><div class="section-title">Missed Establishments</div><div class="info-banner">Tick any establishments on your rounds that you did not manage to visit today.</div><div class="card"><div class="card-label">Establishments not visited <span class="optional-tag">Optional</span></div><div class="estab-grid"><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="gruberMissed" value="Creme De La Creme"> <span>Creme De La Creme</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="gruberMissed" value="Kun Mur - Jewish Care"> <span>Kun Mur — Jewish Care</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="gruberMissed" value="Kaifeng (Glatt Meat)"> <span>Kaifeng (Glatt Meat)</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="gruberMissed" value="Mr Baker"> <span>Mr Baker</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="gruberMissed" value="Tapuach"> <span>Tapuach</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="gruberMissed" value="Hendon Bagel Bakery"> <span>Hendon Bagel Bakery</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="gruberMissed" value="The Bagel Place"> <span>The Bagel Place</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="gruberMissed" value="Bonjour"> <span>Bonjour</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="gruberMissed" value="Bread"> <span>Bread</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="gruberMissed" value="Burger Bar"> <span>Burger Bar</span></label><label class="estab-item" onclick="toggleEstab(this)"><input type="checkbox" name="gruberMissed" value="Bagels Bar"> <span>Bagels Bar</span></label></div><input type="text" id="gruberOther" placeholder="Other establishment…" style="margin-top:10px;"></div></div><div class="section" id="section5"><div class="section-eyebrow">Rabbi Kedourie</div><div class="section-title">Comments</div><div class="card"><div class="card-label"><span class="required-dot"></span> Comments</div><textarea id="fieldKedourieComments" placeholder="Enter your comments for today…"></textarea><div class="field-error" id="errKedourieComments">Please enter your comments.</div></div></div><div class="section" id="section6"><div class="section-eyebrow">Rabbi Katanka</div><div class="section-title">Daily Report</div><div class="card"><div class="card-label">Comments <span class="optional-tag">Optional</span></div><textarea id="fieldKatankaComments" placeholder="Any notes for today…"></textarea></div></div><div class="section" id="section7"><div class="section-eyebrow">Rabbi Kahan</div><div class="section-title">Daily Report</div><div class="card"><div class="card-label">Comments <span class="optional-tag">Optional</span></div><textarea id="fieldKahanComments" placeholder="Any notes for today…"></textarea></div></div><div class="section" id="section8"><div class="section-eyebrow">Caterers</div><div class="section-title">Catering Notes</div><div class="card"><div class="card-label">Comments <span class="optional-tag">Optional</span></div><textarea id="fieldCaterersComments" placeholder="Any catering notes for today…"></textarea></div></div><div class="btn-row" id="btnRow"><button class="btn btn-secondary" id="btnBack" onclick="goBack()" style="display:none;">← Back</button><button class="btn btn-primary" id="btnNext" onclick="goNext()">Continue →</button></div><div class="submit-error" id="submitError">There was a problem submitting. Please try again or contact KLBD.</div><div class="success-screen" id="successScreen"><div class="success-icon"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="18" fill="#16a34a" opacity="0.15"/><path d="M10 18l6 6 10-12" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h2>Response Recorded</h2><p>Your daily YVN inspection report has been submitted. A confirmation has been sent to your email address.</p><div class="summary-box"><h3>Your Submission</h3><div id="summaryContent"></div></div><button class="btn-new" onclick="resetForm()">Submit Another Response</button></div><script>
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwUpDPbuN3OOklNxzerM5eEOPW0y-puwf5ZOSLCJXip_VmDxJzl0_XUywTxrcaZe_o/exec';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily YVN Inspection Form — KLBD</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #003868;
+    --teal: #32A0B0;
+    --orange: #F26C23;
+    --bg: #F6F6FF;
+    --white: #ffffff;
+    --text: #1a1a2e;
+    --muted: #6b7280;
+    --border: #d1d5db;
+    --error: #dc2626;
+    --radius: 10px;
+    --shadow: 0 2px 12px rgba(0,56,104,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 0 0 60px; }
+
+  .header { background: var(--navy); padding: 20px 24px 18px; display: flex; align-items: center; gap: 14px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 16px rgba(0,0,0,0.18); }
+  .header-logo { width: 44px; height: 44px; background: transparent; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .header-text h1 { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--white); line-height: 1.2; }
+  .header-text p { font-size: 12px; color: var(--teal); font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; margin-top: 1px; }
+
+  .progress-wrap { background: var(--navy); padding: 0 24px 16px; }
+  .progress-bar-bg { background: rgba(255,255,255,0.15); border-radius: 99px; height: 4px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: var(--teal); border-radius: 99px; transition: width 0.4s cubic-bezier(.4,0,.2,1); }
+  .progress-label { font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 6px; text-align: right; letter-spacing: 0.03em; }
+
+  .section { display: none; padding: 28px 20px 0; max-width: 600px; margin: 0 auto; animation: fadeIn 0.3s ease; }
+  .section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .section-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--navy); line-height: 1.25; margin-bottom: 22px; }
+
+  .card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; margin-bottom: 14px; }
+  .card-label { font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 10px; display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; }
+  .required-dot { width: 6px; height: 6px; background: var(--orange); border-radius: 50%; display: inline-block; flex-shrink: 0; margin-top: 4px; }
+  .card-hint { font-size: 12px; color: var(--muted); margin-bottom: 10px; line-height: 1.5; }
+  .optional-tag { font-size: 11px; font-weight: 500; color: var(--muted); background: #f3f4f6; border-radius: 4px; padding: 2px 6px; margin-left: 4px; white-space: nowrap; }
+
+  input[type="text"], input[type="email"], input[type="time"], input[type="number"], input[type="date"], textarea {
+    width: 100%; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 8px;
+    font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--text);
+    background: #fafafa; transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  input:focus, textarea:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(50,160,176,0.12); background: #fff; }
+  textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
+
+  .time-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .time-field label { font-size: 12px; font-weight: 600; color: var(--muted); display: block; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* Radio options (name selector) */
+  .options-list { display: flex; flex-direction: column; gap: 8px; }
+  .option-item { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 8px; cursor: pointer; transition: border-color 0.2s, background 0.2s; background: #fafafa; user-select: none; }
+  .option-item:hover { border-color: var(--teal); background: rgba(50,160,176,0.04); }
+  .option-item.selected { border-color: var(--teal); background: rgba(50,160,176,0.08); }
+  .option-item input[type="radio"] { width: 18px; height: 18px; accent-color: var(--teal); cursor: pointer; flex-shrink: 0; }
+  .option-item span { font-size: 14px; color: var(--text); flex: 1; }
+
+  /* Radio options (breaks selector) */
+  .break-options { display: flex; flex-direction: column; gap: 8px; }
+
+  /* Checkbox list for establishments */
+  .check-list { display: flex; flex-direction: column; gap: 6px; }
+  .check-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px; cursor: pointer; transition: border-color 0.2s, background 0.2s; background: #fafafa; user-select: none; }
+  .check-item:hover { border-color: var(--teal); background: rgba(50,160,176,0.04); }
+  .check-item.selected { border-color: var(--teal); background: rgba(50,160,176,0.08); }
+  .check-item input[type="checkbox"] { width: 17px; height: 17px; accent-color: var(--teal); cursor: pointer; flex-shrink: 0; }
+  .check-item span { font-size: 14px; color: var(--text); }
+
+  .field-error { font-size: 12px; color: var(--error); margin-top: 6px; display: none; }
+  .field-error.show { display: block; }
+
+  .btn-row { display: flex; gap: 10px; padding: 24px 20px 0; max-width: 600px; margin: 0 auto; }
+  .btn { flex: 1; padding: 14px 20px; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; border: none; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary { background: var(--navy); color: var(--white); box-shadow: 0 4px 14px rgba(0,56,104,0.25); }
+  .btn-primary:hover { box-shadow: 0 6px 18px rgba(0,56,104,0.32); }
+  .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+  .btn-secondary { background: var(--white); color: var(--navy); border: 1.5px solid var(--border); flex: 0 0 auto; padding: 14px 18px; }
+
+  .submitting-overlay { display: none; position: fixed; inset: 0; background: rgba(0,56,104,0.75); z-index: 999; align-items: center; justify-content: center; flex-direction: column; gap: 16px; }
+  .submitting-overlay.active { display: flex; }
+  .spinner { width: 44px; height: 44px; border: 3px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .submitting-overlay p { color: white; font-size: 15px; font-weight: 500; }
+
+  .success-screen { display: none; padding: 40px 24px; max-width: 600px; margin: 0 auto; text-align: center; animation: fadeIn 0.4s ease; }
+  .success-screen.active { display: block; }
+  .success-icon { width: 72px; height: 72px; background: rgba(22,163,74,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+  .success-screen h2 { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--navy); margin-bottom: 10px; }
+  .success-screen > p { color: var(--muted); font-size: 15px; line-height: 1.6; margin-bottom: 24px; }
+  .summary-box { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; text-align: left; margin-bottom: 24px; }
+  .summary-box h3 { font-size: 13px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .summary-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 7px 0; border-bottom: 1px solid #f3f4f6; font-size: 14px; gap: 12px; }
+  .summary-row:last-child { border-bottom: none; }
+  .summary-row .s-label { color: var(--muted); flex-shrink: 0; max-width: 45%; }
+  .summary-row .s-value { color: var(--text); font-weight: 500; text-align: right; word-break: break-word; }
+  .btn-new { width: 100%; padding: 14px; background: var(--navy); color: white; border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 14px rgba(0,56,104,0.25); }
+  .submit-error { max-width: 600px; margin: 14px auto 0; padding: 0 20px; font-size: 13px; color: var(--error); display: none; text-align: center; }
+  .submit-error.show { display: block; }
+</style>
+</head>
+<body>
+
+<div class="submitting-overlay" id="submittingOverlay">
+  <div class="spinner"></div>
+  <p>Submitting your report…</p>
+</div>
+
+<div class="header">
+  <div class="header-logo">
+<img src="data:image/png;base64,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" alt="KLBD" style="width:40px;height:40px;object-fit:contain;filter:brightness(0) invert(1);">
+  </div>
+  <div class="header-text">
+    <h1>Daily YVN Inspection</h1>
+    <p>KLBD — Kashrut Division</p>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar" style="width:0%"></div></div>
+  <div class="progress-label" id="progressLabel">Step 1 of 3</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 1 — Date & Name (always shown)
+══════════════════════════════════════════ -->
+<div class="section active" id="section1">
+  <div class="section-eyebrow">Daily YVN Inspection Form</div>
+  <div class="section-title">Please fill in this form daily to reflect your visits.</div>
+
+  <div class="card">
+    <div class="card-label"><span class="required-dot"></span>Date</div>
+    <input type="date" id="fieldDate">
+    <div class="field-error" id="errDate">Please select a date.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label"><span class="required-dot"></span>Name</div>
+    <div class="options-list" id="nameOptions">
+      <label class="option-item" onclick="selectName(this,'Rabbi Hillel Gruber')"><input type="radio" name="name" value="Rabbi Hillel Gruber"> <span>Rabbi Hillel Gruber</span></label>
+      <label class="option-item" onclick="selectName(this,'Rabbi Avromi Kahan')"><input type="radio" name="name" value="Rabbi Avromi Kahan"> <span>Rabbi Avromi Kahan</span></label>
+      <label class="option-item" onclick="selectName(this,'Rabbi Shlomo Katanka')"><input type="radio" name="name" value="Rabbi Shlomo Katanka"> <span>Rabbi Shlomo Katanka</span></label>
+      <label class="option-item" onclick="selectName(this,'Rabbi Michael Kedourie')"><input type="radio" name="name" value="Rabbi Michael Kedourie"> <span>Rabbi Michael Kedourie</span></label>
+      <label class="option-item" onclick="selectName(this,'Rabbi Elie Schoemann')"><input type="radio" name="name" value="Rabbi Elie Schoemann"> <span>Rabbi Elie Schoemann</span></label>
+      <label class="option-item" onclick="selectName(this,'Rabbi Hillel Simon')"><input type="radio" name="name" value="Rabbi Hillel Simon"> <span>Rabbi Hillel Simon</span></label>
+      <label class="option-item" onclick="selectName(this,'Rabbi AR Cohen')"><input type="radio" name="name" value="Rabbi AR Cohen"> <span>Rabbi AR Cohen</span></label>
+      <label class="option-item" onclick="selectName(this,'other')"><input type="radio" name="name" value="other"> <span>Other (add your name under comments)</span></label>
+    </div>
+    <input type="text" id="otherNameInput" placeholder="Enter your name" style="display:none;margin-top:10px;">
+    <div class="field-error" id="errName">Please select your name.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label"><span class="required-dot"></span>Your Email Address</div>
+    <div class="card-hint">A copy of your submission will be sent to this address.</div>
+    <input type="email" id="fieldEmail" placeholder="you@klbd.org.uk">
+    <div class="field-error" id="errEmail">Please enter a valid email address.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 2 — Personal YVN section
+     (content changes based on who's logged in)
+══════════════════════════════════════════ -->
+<div class="section" id="section2">
+  <div class="section-eyebrow" id="s2eyebrow">Your Section</div>
+  <div class="section-title" id="s2title">Today's Visits</div>
+
+  <!-- GRUBER: Q3 — Less-often establishments visited (checkboxes) -->
+  <div class="card" id="cardGruberVisited" style="display:none;">
+    <div class="card-label">Which establishments that you visit less often did you visit today? <span class="optional-tag">Optional</span></div>
+    <div class="card-hint">Tick all that apply.</div>
+    <div class="check-list" id="gruberVisitedList">
+      <!-- Populated from CSV: Hillel Gruber's establishments -->
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Allenby Market"> <span>Allenby Market</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Bonjour"> <span>Bonjour</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Bread"> <span>Bread</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Brown Bear Bakery"> <span>Brown Bear Bakery</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Burger Bar (Glatt Meat)"> <span>Burger Bar (Glatt Meat)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Cake Street"> <span>Cake Street</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Charlotte's Sourdough"> <span>Charlotte's Sourdough</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Crème de la Crème"> <span>Crème de la Crème</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Georgia's Kitchen & Deli"> <span>Georgia's Kitchen &amp; Deli</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Grunhut Confeetti by Keshet"> <span>Grunhut Confeetti by Keshet</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Hendon Bagel Bakery"> <span>Hendon Bagel Bakery</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Jewish Care (Gruber)"> <span>Jewish Care</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Jewish Futures Trust (JFT)"> <span>Jewish Futures Trust (JFT)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Kaifeng"> <span>Kaifeng</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Komeals Kitchen"> <span>Komeals Kitchen</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Kun Mor George Kiss Home"> <span>Kun Mor George Kiss Home</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Mana Deli"> <span>Mana Deli</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Mother to Mother"> <span>Mother to Mother</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Mr Baker"> <span>Mr Baker</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Omi Sushi"> <span>Omi Sushi</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Parkway Patisserie (Gruber)"> <span>Parkway Patisserie</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Portoberry"> <span>Portoberry</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Sushi Haven (Hendon) Ltd"> <span>Sushi Haven (Hendon)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Tapuach"> <span>Tapuach</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="The Bagel Place"> <span>The Bagel Place</span></label>
+    </div>
+    <input type="text" id="gruberVisitedOther" placeholder="Other establishment not listed…" style="margin-top:10px;">
+  </div>
+
+  <!-- KEDOURIE: Q4 — Establishments NOT visited (checkboxes) -->
+  <div class="card" id="cardKedourieNotVisited" style="display:none;">
+    <div class="card-label">Which establishments on your rounds you did not manage to visit? <span class="optional-tag">Optional</span></div>
+    <div class="card-hint">Tick all that apply.</div>
+    <div class="check-list">
+      <!-- Populated from CSV: Michael Kedouri's establishments -->
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Ayelet's Luxury Delicatessen"> <span>Ayelet's Luxury Delicatessen</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Bagels Bar (Dairy)"> <span>Bagels Bar (Dairy)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Bagels Bar Grill House (Glatt)"> <span>Bagels Bar Grill House (Glatt)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Beit Cafe"> <span>Beit Cafe</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Booya Gelato"> <span>Booya Gelato</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Carmelli"> <span>Carmelli</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="CoCo Bakery"> <span>CoCo Bakery</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Cohen Bakery"> <span>Cohen Bakery</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Domo"> <span>Domo</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Eli's Pizza (Dairy) Branch"> <span>Eli's Pizza (Dairy) Branch</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Equal (Kisharon)"> <span>Equal (Kisharon)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Fresh to your Door"> <span>Fresh to your Door</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Grodzinski Golders Green"> <span>Grodzinski Golders Green</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Hummus Bar"> <span>Hummus Bar</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Hummus Bar Hendon"> <span>Hummus Bar Hendon</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Kosher Deli (GG)"> <span>Kosher Deli (GG)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Kosher Kingdom"> <span>Kosher Kingdom</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="La Brioche (Kedourie)"> <span>La Brioche</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Leon's Fruit Shop"> <span>Leon's Fruit Shop</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Leveyuson"> <span>Leveyuson</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Menachem's"> <span>Menachem's</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Munch & Crunch"> <span>Munch &amp; Crunch</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Novellino (Dairy)"> <span>Novellino (Dairy)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Novellino Bistro"> <span>Novellino Bistro</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Parkway Patisserie (Kedourie)"> <span>Parkway Patisserie</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Pour Toi Artisan Chocolatier"> <span>Pour Toi Artisan Chocolatier</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Sami's (Glatt Meat)"> <span>Sami's (Glatt Meat)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Slice"> <span>Slice</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Surfin Poke Ltd"> <span>Surfin Poke</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Sushi Haven (Kedourie)"> <span>Sushi Haven</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Taboon (Dairy)"> <span>Taboon (Dairy)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="TukTuk"> <span>TukTuk</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="White Fish"> <span>White Fish</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="White House Express"> <span>White House Express</span></label>
+    </div>
+    <input type="text" id="kedourieNotVisitedOther" placeholder="Other establishment not listed…" style="margin-top:10px;">
+  </div>
+
+  <!-- KEDOURIE: Q5 — Comments (required for Kedourie) -->
+  <div class="card" id="cardKedourieComments" style="display:none;">
+    <div class="card-label"><span class="required-dot"></span>Comments</div>
+    <textarea id="fieldKedourieComments" placeholder="Enter your comments for today…"></textarea>
+    <div class="field-error" id="errKedourieComments">Please enter your comments.</div>
+  </div>
+
+  <!-- KATANKA: establishments visited less often -->
+  <div class="card" id="cardKatankaVisited" style="display:none;">
+    <div class="card-label">Which establishments that you visit less often did you visit today? <span class="optional-tag">Optional</span></div>
+    <div class="card-hint">Tick all that apply.</div>
+    <div class="check-list">
+      <!-- Populated from CSV: Shlomo Katanka's establishments -->
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="1070 Kitchen"> <span>1070 Kitchen</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Balagan"> <span>Balagan</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Eli's Pizza (Dairy) Branch (Katanka)"> <span>Eli's Pizza (Dairy) Branch</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Grodz of Edgware"> <span>Grodz of Edgware</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Just Baked"> <span>Just Baked</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Just Kosher"> <span>Just Kosher</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Kosher Deli (Borehamwood)"> <span>Kosher Deli (Borehamwood)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Kosher Deli (Edgware)"> <span>Kosher Deli (Edgware)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Kosher Edge (formerly Mendy's)"> <span>Kosher Edge (formerly Mendy's)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="La Brioche (Katanka)"> <span>La Brioche</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Nat Jacobs Ltd."> <span>Nat Jacobs</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Parkway Patisserie (Katanka)"> <span>Parkway Patisserie</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Pumpernicks (Dairy)"> <span>Pumpernicks (Dairy)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Rodo Meats"> <span>Rodo Meats</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Sababa"> <span>Sababa</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Sami's (Glatt Meat) Edgware Branch"> <span>Sami's (Glatt Meat) Edgware</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Sharon's Bakery"> <span>Sharon's Bakery</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Sushi Haven (within Hadar)"> <span>Sushi Haven (within Hadar)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Yofi"> <span>Yofi</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Yossi's Bakery"> <span>Yossi's Bakery</span></label>
+    </div>
+    <input type="text" id="katankaVisitedOther" placeholder="Other establishment not listed…" style="margin-top:10px;">
+  </div>
+
+  <!-- KATANKA: establishments NOT visited -->
+  <div class="card" id="cardKatankaNotVisited" style="display:none;">
+    <div class="card-label">Which establishments on your rounds you did not manage to visit? <span class="optional-tag">Optional</span></div>
+    <div class="card-hint">Tick all that apply.</div>
+    <div class="check-list">
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="1070 Kitchen"> <span>1070 Kitchen</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Balagan"> <span>Balagan</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Eli's Pizza (Dairy) Branch (Katanka)"> <span>Eli's Pizza (Dairy) Branch</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Grodz of Edgware"> <span>Grodz of Edgware</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Just Baked"> <span>Just Baked</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Just Kosher"> <span>Just Kosher</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Kosher Deli (Borehamwood)"> <span>Kosher Deli (Borehamwood)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Kosher Deli (Edgware)"> <span>Kosher Deli (Edgware)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Kosher Edge (formerly Mendy's)"> <span>Kosher Edge (formerly Mendy's)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="La Brioche (Katanka)"> <span>La Brioche</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Nat Jacobs Ltd."> <span>Nat Jacobs</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Parkway Patisserie (Katanka)"> <span>Parkway Patisserie</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Pumpernicks (Dairy)"> <span>Pumpernicks (Dairy)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Rodo Meats"> <span>Rodo Meats</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Sababa"> <span>Sababa</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Sami's (Glatt Meat) Edgware Branch"> <span>Sami's (Glatt Meat) Edgware</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Sharon's Bakery"> <span>Sharon's Bakery</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Sushi Haven (within Hadar)"> <span>Sushi Haven (within Hadar)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Yofi"> <span>Yofi</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Yossi's Bakery"> <span>Yossi's Bakery</span></label>
+    </div>
+    <input type="text" id="katankaNotVisitedOther" placeholder="Other establishment not listed…" style="margin-top:10px;">
+  </div>
+
+  <!-- KAHAN: establishments visited less often (checkboxes) -->
+  <div class="card" id="cardKahanVisited" style="display:none;">
+    <div class="card-label">Which establishments that you visit less often did you visit today? <span class="optional-tag">Optional</span></div>
+    <div class="card-hint">Tick all that apply.</div>
+    <div class="check-list">
+      <!-- Populated from CSV: Avrumi Kahan's establishments -->
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Alpine Frozen Desserts Ltd."> <span>Alpine Frozen Desserts</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Balady"> <span>Balady</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Charedi Dairies Co."> <span>Charedi Dairies Co.</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Cheffmans"> <span>Cheffmans</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Daniels Bakery"> <span>Daniels Bakery</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Goldman's Delights"> <span>Goldman's Delights</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Goldstein Salmon Curers"> <span>Goldstein Salmon Curers</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Habiba's Smokehouse"> <span>Habiba's Smokehouse</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Indulge"> <span>Indulge</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Kasa Bar & Grill"> <span>Kasa Bar &amp; Grill</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Kosher Deli (Temple Fortune)"> <span>Kosher Deli (Temple Fortune)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Moss & Maple"> <span>Moss &amp; Maple</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Novelino Brighton"> <span>Novelino Brighton</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Perele's Cakes"> <span>Perele's Cakes</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Renbake Patisserie Ltd."> <span>Renbake Patisserie</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="S Schwartz"> <span>S Schwartz</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Snowcrest Ltd."> <span>Snowcrest</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="So Real Branch"> <span>So Real Branch</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Swizl"> <span>Swizl</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Tasti Pizza (Dairy)"> <span>Tasti Pizza (Dairy)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Tish"> <span>Tish</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Tony Page Marylebone"> <span>Tony Page Marylebone</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Tuv Taam/Tasti Pizza"> <span>Tuv Taam / Tasti Pizza</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Woodberry Down (Commercial)"> <span>Woodberry Down (Commercial)</span></label>
+    </div>
+    <input type="text" id="kahanVisitedOther" placeholder="Other establishment not listed…" style="margin-top:10px;">
+  </div>
+
+  <!-- KAHAN: establishments NOT visited -->
+  <div class="card" id="cardKahanNotVisited" style="display:none;">
+    <div class="card-label">Which establishments on your rounds you did not manage to visit? <span class="optional-tag">Optional</span></div>
+    <div class="card-hint">Tick all that apply.</div>
+    <div class="check-list">
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Alpine Frozen Desserts Ltd."> <span>Alpine Frozen Desserts</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Balady"> <span>Balady</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Charedi Dairies Co."> <span>Charedi Dairies Co.</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Cheffmans"> <span>Cheffmans</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Daniels Bakery"> <span>Daniels Bakery</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Goldman's Delights"> <span>Goldman's Delights</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Goldstein Salmon Curers"> <span>Goldstein Salmon Curers</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Habiba's Smokehouse"> <span>Habiba's Smokehouse</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Indulge"> <span>Indulge</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Kasa Bar & Grill"> <span>Kasa Bar &amp; Grill</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Kosher Deli (Temple Fortune)"> <span>Kosher Deli (Temple Fortune)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Moss & Maple"> <span>Moss &amp; Maple</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Novelino Brighton"> <span>Novelino Brighton</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Perele's Cakes"> <span>Perele's Cakes</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Renbake Patisserie Ltd."> <span>Renbake Patisserie</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="S Schwartz"> <span>S Schwartz</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Snowcrest Ltd."> <span>Snowcrest</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="So Real Branch"> <span>So Real Branch</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Swizl"> <span>Swizl</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Tasti Pizza (Dairy)"> <span>Tasti Pizza (Dairy)</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Tish"> <span>Tish</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Tony Page Marylebone"> <span>Tony Page Marylebone</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Tuv Taam/Tasti Pizza"> <span>Tuv Taam / Tasti Pizza</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Woodberry Down (Commercial)"> <span>Woodberry Down (Commercial)</span></label>
+    </div>
+    <input type="text" id="kahanNotVisitedOther" placeholder="Other establishment not listed…" style="margin-top:10px;">
+  </div>
+
+  <!-- COHEN: establishments visited (checkboxes) -->
+  <div class="card" id="cardCohenVisited" style="display:none;">
+    <div class="card-label">Which establishments that you visit less often did you visit today? <span class="optional-tag">Optional</span></div>
+    <div class="card-hint">Tick all that apply.</div>
+    <div class="check-list">
+      <!-- Populated from CSV: AR Cohen's establishments -->
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="cohenVisited" value="Fruit & Veg Direct"> <span>Fruit &amp; Veg Direct</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="cohenVisited" value="Fruit2Go"> <span>Fruit2Go</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="cohenVisited" value="Jewish Care"> <span>Jewish Care</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="cohenVisited" value="Jewish Care Holocaust Survivors' Centre"> <span>Jewish Care Holocaust Survivors' Centre</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="cohenVisited" value="Jewish Care Otto Schiff Care Home"> <span>Jewish Care Otto Schiff Care Home</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="cohenVisited" value="Jewish Care Selig Court Restaurant"> <span>Jewish Care Selig Court Restaurant</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="cohenVisited" value="Michael Sobell Jewish Community Centre"> <span>Michael Sobell Jewish Community Centre</span></label>
+    </div>
+    <input type="text" id="cohenVisitedOther" placeholder="Other establishment not listed…" style="margin-top:10px;">
+  </div>
+
+  <!-- SIMON: establishments visited (checkboxes) -->
+  <div class="card" id="cardSimonVisited" style="display:none;">
+    <div class="card-label">Which establishments that you visit less often did you visit today? <span class="optional-tag">Optional</span></div>
+    <div class="card-hint">Tick all that apply.</div>
+    <div class="check-list">
+      <!-- Populated from CSV: Hillel Simon's establishments -->
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="simonVisited" value="DDs Sandwiches"> <span>DDs Sandwiches</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="simonVisited" value="Hermolis & Co. Ltd."> <span>Hermolis &amp; Co.</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="simonVisited" value="Immanuel College"> <span>Immanuel College</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="simonVisited" value="Jewish Care (Simon)"> <span>Jewish Care</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="simonVisited" value="Kosher Deli (Simon)"> <span>Kosher Deli</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="simonVisited" value="Nightingale"> <span>Nightingale</span></label>
+      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="simonVisited" value="Walnut Tree"> <span>Walnut Tree</span></label>
+    </div>
+    <input type="text" id="simonVisitedOther" placeholder="Other establishment not listed…" style="margin-top:10px;">
+  </div>
+
+  <!-- Comments for "Other" / general -->
+  <div class="card" id="cardGeneralComments" style="display:none;">
+    <div class="card-label">Comments <span class="optional-tag">Optional</span></div>
+    <textarea id="fieldGeneralComments" placeholder="Add your name and any comments here…"></textarea>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 3 — All YVNs (working hours)
+══════════════════════════════════════════ -->
+<div class="section" id="section3">
+  <div class="section-eyebrow">All YVNs</div>
+  <div class="section-title">Working Hours</div>
+
+  <div class="card">
+    <div class="card-label"><span class="required-dot"></span>Start time</div>
+    <input type="time" id="fieldStartTime">
+    <div class="field-error" id="errStartTime">Please enter your start time.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label"><span class="required-dot"></span>End time</div>
+    <input type="time" id="fieldEndTime">
+    <div class="field-error" id="errEndTime">Please enter your end time.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Breaks taken <span class="optional-tag">Optional</span></div>
+    <div class="break-options" id="breaksOptions">
+      <label class="option-item" onclick="selectBreak(this,'None')"><input type="radio" name="breaks" value="None"> <span>None</span></label>
+      <label class="option-item" onclick="selectBreak(this,'15 minutes')"><input type="radio" name="breaks" value="15 minutes"> <span>15 minutes</span></label>
+      <label class="option-item" onclick="selectBreak(this,'30 minutes')"><input type="radio" name="breaks" value="30 minutes"> <span>30 minutes</span></label>
+      <label class="option-item" onclick="selectBreak(this,'1 hour')"><input type="radio" name="breaks" value="1 hour"> <span>1 hour</span></label>
+      <label class="option-item" onclick="selectBreak(this,'Longer')"><input type="radio" name="breaks" value="Longer"> <span>Longer</span></label>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Mileage (where applicable) <span class="optional-tag">Optional</span></div>
+    <div class="card-hint">Enter daily total mileage if you travelled by car today.</div>
+    <input type="number" id="fieldMileage" placeholder="e.g. 24" min="0" step="1">
+  </div>
+
+  <div class="card">
+    <div class="card-label">Any issues or exceptions impacting your working time <span class="optional-tag">Optional</span></div>
+    <div class="card-hint">This will appear in your email confirmation.</div>
+    <textarea id="fieldIssues" placeholder="Describe any issues or exceptions…"></textarea>
+  </div>
+</div>
+
+<div class="btn-row" id="btnRow">
+  <button class="btn btn-secondary" id="btnBack" onclick="goBack()" style="display:none;">← Back</button>
+  <button class="btn btn-primary" id="btnNext" onclick="goNext()">Continue →</button>
+</div>
+<div class="submit-error" id="submitError">There was a problem submitting. Please try again or contact KLBD.</div>
+
+<!-- SUCCESS -->
+<div class="success-screen" id="successScreen">
+  <div class="success-icon">
+    <svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="18" fill="#16a34a" opacity="0.15"/><path d="M10 18l6 6 10-12" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <h2>Response Recorded</h2>
+  <p>Your daily YVN inspection report has been submitted. A confirmation has been sent to your email address.</p>
+  <div class="summary-box">
+    <h3>Your Submission</h3>
+    <div id="summaryContent"></div>
+  </div>
+  <button class="btn-new" onclick="resetForm()">Submit Another Response</button>
+</div>
+
+<script>
+  // ─────────────────────────────────────────────────────────────
+  // CONFIGURATION — paste your Apps Script Web App URL here
+  // ─────────────────────────────────────────────────────────────
+  const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
+  // ─────────────────────────────────────────────────────────────
+
   let currentSection = 1;
-  const totalSections = 8;
+  const TOTAL_SECTIONS = 3;
   let selectedName = '';
   let selectedBreakVal = '';
+
   document.getElementById('fieldDate').valueAsDate = new Date();
+
   function updateProgress() {
-    document.getElementById('progressBar').style.width = (currentSection / totalSections * 100) + '%';
-    document.getElementById('progressLabel').textContent = 'Step ' + currentSection + ' of ' + totalSections;
+    document.getElementById('progressBar').style.width = (currentSection / TOTAL_SECTIONS * 100) + '%';
+    document.getElementById('progressLabel').textContent = `Step ${currentSection} of ${TOTAL_SECTIONS}`;
     document.getElementById('btnBack').style.display = currentSection > 1 ? 'block' : 'none';
-    document.getElementById('btnNext').textContent = currentSection === totalSections ? 'Submit →' : 'Continue →';
+    document.getElementById('btnNext').textContent = currentSection === TOTAL_SECTIONS ? 'Submit →' : 'Continue →';
   }
+
+  function resolvedName() {
+    return selectedName === 'other'
+      ? document.getElementById('otherNameInput').value.trim()
+      : selectedName;
+  }
+
   function selectName(el, val) {
     document.querySelectorAll('#nameOptions .option-item').forEach(i => i.classList.remove('selected'));
-    el.classList.add('selected'); selectedName = val;
+    el.classList.add('selected');
+    selectedName = val;
     document.getElementById('otherNameInput').style.display = val === 'other' ? 'block' : 'none';
     clearErr('errName');
   }
+
   function selectBreak(el, val) {
     document.querySelectorAll('#breaksOptions .option-item').forEach(i => i.classList.remove('selected'));
-    el.classList.add('selected'); selectedBreakVal = val; clearErr('errBreaks');
+    el.classList.add('selected');
+    selectedBreakVal = val;
   }
-  function toggleEstab(el) { el.classList.toggle('selected'); }
+
+  function toggleCheck(el) { el.classList.toggle('selected'); }
   function clearErr(id) { document.getElementById(id).classList.remove('show'); }
-  function showErr(id) { document.getElementById(id).classList.add('show'); }
-  function validEmail(e) { return /^[^s@]+@[^s@]+.[^s@]+$/.test(e); }
-  function resolvedName() { return selectedName === 'other' ? document.getElementById('otherNameInput').value.trim() : selectedName; }
+  function showErr(id)  { document.getElementById(id).classList.add('show'); }
+  function validEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+
+  // Hide all personal-section cards, then show correct ones for this person
+  function configureSection2() {
+    const name = selectedName;
+    const resolved = resolvedName();
+
+    document.getElementById('s2eyebrow').textContent = resolved || 'Your Section';
+    document.getElementById('s2title').textContent = 'Today\'s Visits';
+
+    // Hide all
+    ['cardGruberVisited','cardKedourieNotVisited','cardKedourieComments',
+     'cardKatankaVisited','cardKatankaNotVisited',
+     'cardKahanVisited','cardKahanNotVisited',
+     'cardCohenVisited','cardSimonVisited','cardGeneralComments']
+      .forEach(id => document.getElementById(id).style.display = 'none');
+
+    // Show correct set
+    if (name === 'Rabbi Hillel Gruber') {
+      show('cardGruberVisited');
+    } else if (name === 'Rabbi Michael Kedourie') {
+      show('cardKedourieNotVisited');
+      show('cardKedourieComments');
+    } else if (name === 'Rabbi Shlomo Katanka') {
+      show('cardKatankaVisited');
+      show('cardKatankaNotVisited');
+    } else if (name === 'Rabbi Avromi Kahan') {
+      show('cardKahanVisited');
+      show('cardKahanNotVisited');
+    } else if (name === 'Rabbi AR Cohen') {
+      show('cardCohenVisited');
+    } else if (name === 'Rabbi Hillel Simon') {
+      show('cardSimonVisited');
+    } else if (name === 'Rabbi Elie Schoemann') {
+      // Caterers section — no establishment checkboxes, just proceed
+    } else {
+      // Other
+      show('cardGeneralComments');
+    }
+  }
+
+  function show(id) { document.getElementById(id).style.display = 'block'; }
+
   function validateSection(n) {
     let ok = true;
     if (n === 1) {
@@ -33,88 +585,129 @@
       if (!selectedName || (selectedName === 'other' && !document.getElementById('otherNameInput').value.trim())) { showErr('errName'); ok = false; }
       if (!validEmail(document.getElementById('fieldEmail').value.trim())) { showErr('errEmail'); ok = false; }
     }
-    if (n === 2) {
-      if (!document.getElementById('fieldStartTime').value || !document.getElementById('fieldEndTime').value) { showErr('errTimes'); ok = false; }
-      if (!selectedBreakVal) { showErr('errBreaks'); ok = false; }
-    }
-    if (n === 5 && resolvedName() === 'Rabbi Michael Kedourie') {
+    if (n === 2 && selectedName === 'Rabbi Michael Kedourie') {
       if (!document.getElementById('fieldKedourieComments').value.trim()) { showErr('errKedourieComments'); ok = false; }
+    }
+    if (n === 3) {
+      if (!document.getElementById('fieldStartTime').value) { showErr('errStartTime'); ok = false; }
+      if (!document.getElementById('fieldEndTime').value) { showErr('errEndTime'); ok = false; }
     }
     return ok;
   }
-  function shouldShowSection(n) {
-    const map = {3:'Rabbi AR Cohen',4:'Rabbi Hillel Gruber',5:'Rabbi Michael Kedourie',6:'Rabbi Shlomo Katanka',7:'Rabbi Avromi Kahan'};
-    return map[n] ? resolvedName() === map[n] : true;
-  }
+
   function goNext() {
     if (!validateSection(currentSection)) return;
-    if (currentSection === totalSections) { submitForm(); return; }
-    let next = currentSection + 1;
-    while (next <= totalSections && !shouldShowSection(next)) next++;
-    if (next > totalSections) { submitForm(); return; }
+    if (currentSection === 1) configureSection2();
+    if (currentSection === TOTAL_SECTIONS) { submitForm(); return; }
     document.getElementById('section' + currentSection).classList.remove('active');
-    currentSection = next;
+    currentSection++;
     document.getElementById('section' + currentSection).classList.add('active');
-    updateProgress(); window.scrollTo({top:0,behavior:'smooth'});
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
   function goBack() {
-    let prev = currentSection - 1;
-    while (prev >= 1 && !shouldShowSection(prev)) prev--;
-    if (prev < 1) return;
+    if (currentSection <= 1) return;
     document.getElementById('section' + currentSection).classList.remove('active');
-    currentSection = prev;
+    currentSection--;
     document.getElementById('section' + currentSection).classList.add('active');
-    updateProgress(); window.scrollTo({top:0,behavior:'smooth'});
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
   function getChecked(name) {
     const vals = [];
-    document.querySelectorAll('input[name="' + name + '"]:checked').forEach(el => vals.push(el.value));
+    document.querySelectorAll(`input[name="${name}"]:checked`).forEach(el => vals.push(el.value));
     return vals.join(', ');
   }
+
   function fmt(t) {
     if (!t) return '—';
-    const [h, m] = t.split(':'); const hr = parseInt(h);
-    return (hr % 12 || 12) + ':' + m + (hr >= 12 ? 'pm' : 'am');
+    const [h, m] = t.split(':');
+    const hr = parseInt(h);
+    return `${hr % 12 || 12}:${m}${hr >= 12 ? 'pm' : 'am'}`;
   }
+
+  function v(id) { return document.getElementById(id).value.trim(); }
+
   function buildData() {
-    const name = resolvedName();
-    const date = document.getElementById('fieldDate').value;
+    const name = selectedName;
     return {
-      timestamp: new Date().toISOString(),
-      date: new Date(date + 'T12:00:00').toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'}),
-      name, email: document.getElementById('fieldEmail').value.trim(),
-      startTime: fmt(document.getElementById('fieldStartTime').value),
-      endTime: fmt(document.getElementById('fieldEndTime').value),
-      breaks: selectedBreakVal,
-      mileage: document.getElementById('fieldMileage').value || '',
-      issues: document.getElementById('fieldIssues').value.trim(),
-      cohenVisited: getChecked('cohenVisited'),
-      cohenOther: document.getElementById('cohenOther').value.trim(),
-      gruberMissed: getChecked('gruberMissed'),
-      gruberOther: document.getElementById('gruberOther').value.trim(),
-      kedourieComments: document.getElementById('fieldKedourieComments').value.trim(),
-      katankaComments: document.getElementById('fieldKatankaComments').value.trim(),
-      kahanComments: document.getElementById('fieldKahanComments').value.trim(),
-      caterersComments: document.getElementById('fieldCaterersComments').value.trim(),
+      timestamp:              new Date().toISOString(),
+      date:                   new Date(v('fieldDate') + 'T12:00:00').toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long', year:'numeric' }),
+      name:                   resolvedName(),
+      email:                  v('fieldEmail'),
+      // Establishment selections — each YVN's own fields
+      gruberVisited:          getChecked('gruberVisited'),
+      gruberVisitedOther:     v('gruberVisitedOther'),
+      kedourieNotVisited:     getChecked('kedourieNotVisited'),
+      kedourieNotVisitedOther:v('kedourieNotVisitedOther'),
+      kedourieComments:       v('fieldKedourieComments'),
+      katankaVisited:         getChecked('katankaVisited'),
+      katankaVisitedOther:    v('katankaVisitedOther'),
+      katankaNotVisited:      getChecked('katankaNotVisited'),
+      katankaNotVisitedOther: v('katankaNotVisitedOther'),
+      kahanVisited:           getChecked('kahanVisited'),
+      kahanVisitedOther:      v('kahanVisitedOther'),
+      kahanNotVisited:        getChecked('kahanNotVisited'),
+      kahanNotVisitedOther:   v('kahanNotVisitedOther'),
+      cohenVisited:           getChecked('cohenVisited'),
+      cohenVisitedOther:      v('cohenVisitedOther'),
+      simonVisited:           getChecked('simonVisited'),
+      simonVisitedOther:      v('simonVisitedOther'),
+      generalComments:        v('fieldGeneralComments'),
+      // All YVNs
+      startTime:              fmt(document.getElementById('fieldStartTime').value),
+      endTime:                fmt(document.getElementById('fieldEndTime').value),
+      breaks:                 selectedBreakVal || '—',
+      mileage:                v('fieldMileage'),
+      issues:                 v('fieldIssues'),
     };
   }
+
   function buildSummaryHTML(d) {
-    const rows=[['Date',d.date],['Inspector',d.name],['Email',d.email],['Start Time',d.startTime],['End Time',d.endTime],['Breaks Taken',d.breaks],['Mileage',d.mileage?d.mileage+' miles':'—'],['Issues / Exceptions',d.issues||'—']];
-    if(d.cohenVisited||d.cohenOther)rows.push(['Establishments Visited',[d.cohenVisited,d.cohenOther].filter(Boolean).join(', ')||'—']);
-    if(d.gruberMissed||d.gruberOther)rows.push(['Establishments Missed',[d.gruberMissed,d.gruberOther].filter(Boolean).join(', ')||'—']);
-    if(d.kedourieComments)rows.push(['Comments',d.kedourieComments]);
-    if(d.katankaComments)rows.push(['Comments',d.katankaComments]);
-    if(d.kahanComments)rows.push(['Comments',d.kahanComments]);
-    if(d.caterersComments)rows.push(['Catering Notes',d.caterersComments]);
-    return rows.map(([l,v])=>'<div class="summary-row"><span class="s-label">'+l+'</span><span class="s-value">'+v+'</span></div>').join('');
+    const rows = [
+      ['Date', d.date],
+      ['Inspector', d.name],
+      ['Start Time', d.startTime],
+      ['End Time', d.endTime],
+      ['Breaks Taken', d.breaks],
+    ];
+    if (d.mileage) rows.push(['Mileage', d.mileage + ' miles']);
+
+    // Add whichever fields have content
+    const estabRows = [
+      ['Establishments Visited (less often)', [d.gruberVisited, d.gruberVisitedOther].filter(Boolean).join(', ')],
+      ['Establishments Not Visited', [d.kedourieNotVisited, d.kedourieNotVisitedOther].filter(Boolean).join(', ')],
+      ['Comments', d.kedourieComments],
+      ['Establishments Visited (less often)', [d.katankaVisited, d.katankaVisitedOther].filter(Boolean).join(', ')],
+      ['Establishments Not Visited', [d.katankaNotVisited, d.katankaNotVisitedOther].filter(Boolean).join(', ')],
+      ['Establishments Visited (less often)', [d.kahanVisited, d.kahanVisitedOther].filter(Boolean).join(', ')],
+      ['Establishments Not Visited', [d.kahanNotVisited, d.kahanNotVisitedOther].filter(Boolean).join(', ')],
+      ['Establishments Visited (less often)', [d.cohenVisited, d.cohenVisitedOther].filter(Boolean).join(', ')],
+      ['Establishments Visited (less often)', [d.simonVisited, d.simonVisitedOther].filter(Boolean).join(', ')],
+      ['Comments', d.generalComments],
+      ['Issues / Exceptions', d.issues],
+    ];
+    estabRows.forEach(([l, v]) => { if (v) rows.push([l, v]); });
+
+    return rows.map(([l, val]) =>
+      `<div class="summary-row"><span class="s-label">${l}</span><span class="s-value">${val}</span></div>`
+    ).join('');
   }
+
   async function submitForm() {
     const data = buildData();
     document.getElementById('submittingOverlay').classList.add('active');
     document.getElementById('btnNext').disabled = true;
     document.getElementById('submitError').classList.remove('show');
     try {
-      await fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
       showSuccess(data);
     } catch(err) {
       document.getElementById('submittingOverlay').classList.remove('active');
@@ -122,17 +715,21 @@
       document.getElementById('submitError').classList.add('show');
     }
   }
+
   function showSuccess(data) {
     document.getElementById('submittingOverlay').classList.remove('active');
     document.getElementById('summaryContent').innerHTML = buildSummaryHTML(data);
-    document.getElementById('section'+currentSection).classList.remove('active');
-    document.getElementById('btnRow').style.display='none';
-    document.getElementById('submitError').style.display='none';
-    document.getElementById('progressBar').style.width='100%';
-    document.getElementById('progressLabel').textContent='Complete';
+    document.getElementById('section' + currentSection).classList.remove('active');
+    document.getElementById('btnRow').style.display = 'none';
+    document.getElementById('submitError').style.display = 'none';
+    document.getElementById('progressBar').style.width = '100%';
+    document.getElementById('progressLabel').textContent = 'Complete';
     document.getElementById('successScreen').classList.add('active');
-    window.scrollTo({top:0,behavior:'smooth'});
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-  function resetForm(){location.reload();}
+
+  function resetForm() { location.reload(); }
   updateProgress();
-</script></body></html>
+</script>
+</body>
+</html>
