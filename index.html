@@ -24,7 +24,7 @@
   function toggleEstab(el) { el.classList.toggle('selected'); }
   function clearErr(id) { document.getElementById(id).classList.remove('show'); }
   function showErr(id) { document.getElementById(id).classList.add('show'); }
-  function validEmail(e) { return /^[^s@]+@[^s@]+.[^s@]+$/.test(e); }
+  function validEmail(e) { return e.indexOf('@')>0 && e.lastIndexOf('.')>e.indexOf('@')+1 && e.length>5; }
   function resolvedName() { return selectedName === 'other' ? document.getElementById('otherNameInput').value.trim() : selectedName; }
   function validateSection(n) {
     let ok = true;
