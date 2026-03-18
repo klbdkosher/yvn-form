@@ -160,10 +160,10 @@
   </div>
 
   <div class="card">
-    <div class="card-label"><span class="required-dot"></span>Your Email Address</div>
-    <div class="card-hint">A copy of your submission will be sent to this address.</div>
+    <div class="card-label">Your Email Address <span style="font-weight:400;color:#888;font-size:0.85em;">(Optional)</span></div>
+    <div class="card-hint">If you'd like a copy of your submission sent to you, enter your email address.</div>
     <input type="email" id="fieldEmail" placeholder="you@kosher.org.uk">
-    <div class="field-error" id="errEmail">Please enter a valid email address.</div>
+    <div class="field-error" id="errEmail">Please enter a valid email address (or leave blank).</div>
   </div>
 </div>
 
@@ -583,7 +583,7 @@
     if (n === 1) {
       if (!document.getElementById('fieldDate').value) { showErr('errDate'); ok = false; }
       if (!selectedName || (selectedName === 'other' && !document.getElementById('otherNameInput').value.trim())) { showErr('errName'); ok = false; }
-      if (!validEmail(document.getElementById('fieldEmail').value.trim())) { showErr('errEmail'); ok = false; }
+      const emailVal = document.getElementById('fieldEmail').value.trim(); if (emailVal && !validEmail(emailVal)) { showErr('errEmail'); ok = false; }
     }
     if (n === 2 && selectedName === 'Rabbi Michael Kedourie') {
       if (!document.getElementById('fieldKedourieComments').value.trim()) { showErr('errKedourieComments'); ok = false; }
