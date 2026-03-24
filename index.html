@@ -1,723 +1,246 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daily YVN Inspection Form — KLBD</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --navy: #003868;
-    --teal: #32A0B0;
-    --orange: #F26C23;
-    --bg: #F6F6FF;
-    --white: #ffffff;
-    --text: #1a1a2e;h
-    --muted: #6b7280;
-    --border: #d1d5db;
-    --error: #dc2626;
-    --radius: 10px;
-    --shadow: 0 2px 12px rgba(0,56,104,0.10);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 0 0 60px; }
-  .header { background: var(--navy); padding: 20px 24px 18px; display: flex; align-items: center; gap: 14px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 16px rgba(0,0,0,0.18); }
-  .header-logo { width: 44px; height: 44px; background: transparent; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .header-text h1 { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--white); line-height: 1.2; }
-  .header-text p { font-size: 12px; color: var(--teal); font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; margin-top: 1px; }
-  .progress-wrap { background: var(--navy); padding: 0 24px 16px; }
-  .progress-bar-bg { background: rgba(255,255,255,0.15); border-radius: 99px; height: 4px; overflow: hidden; }
-  .progress-bar-fill { height: 100%; background: var(--teal); border-radius: 99px; transition: width 0.4s cubic-bezier(.4,0,.2,1); }
-  .progress-label { font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 6px; text-align: right; letter-spacing: 0.03em; }
-  .section { display: none; padding: 28px 20px 0; max-width: 600px; margin: 0 auto; animation: fadeIn 0.3s ease; }
-  .section.active { display: block; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  .section-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
-  .section-title { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--navy); line-height: 1.25; margin-bottom: 22px; }
-  .card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; margin-bottom: 14px; }
-  .card-label { font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 10px; display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; }
-  .required-dot { width: 6px; height: 6px; background: var(--orange); border-radius: 50%; display: inline-block; flex-shrink: 0; margin-top: 4px; }
-  .card-hint { font-size: 12px; color: var(--muted); margin-bottom: 10px; line-height: 1.5; }
-  .optional-tag { font-size: 11px; font-weight: 500; color: var(--muted); background: #f3f4f6; border-radius: 4px; padding: 2px 6px; margin-left: 4px; white-space: nowrap; }
-  input[type="text"], input[type="email"], input[type="time"], input[type="number"], input[type="date"], textarea {
-    width: 100%; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 8px;
-    font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--text);
-    background: #fafafa; transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  input:focus, textarea:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(50,160,176,0.12); background: #fff; }
-  textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
-  .time-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .time-field label { font-size: 12px; font-weight: 600; color: var(--muted); display: block; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.05em; }
-  /* Radio options (name selector) */
-  .options-list { display: flex; flex-direction: column; gap: 8px; }
-  .option-item { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 8px; cursor: pointer; transition: border-color 0.2s, background 0.2s; background: #fafafa; user-select: none; }
-  .option-item:hover { border-color: var(--teal); background: rgba(50,160,176,0.04); }
-  .option-item.selected { border-color: var(--teal); background: rgba(50,160,176,0.08); }
-  .option-item input[type="radio"] { width: 18px; height: 18px; accent-color: var(--teal); cursor: pointer; flex-shrink: 0; }
-  .option-item span { font-size: 14px; color: var(--text); flex: 1; }
-  /* Radio options (breaks selector) */
-  .break-options { display: flex; flex-direction: column; gap: 8px; }
-  /* Checkbox list for establishments */
-  .check-list { display: flex; flex-direction: column; gap: 6px; }
-  .check-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px; cursor: pointer; transition: border-color 0.2s, background 0.2s; background: #fafafa; user-select: none; }
-  .check-item:hover { border-color: var(--teal); background: rgba(50,160,176,0.04); }
-  .check-item.selected { border-color: var(--teal); background: rgba(50,160,176,0.08); }
-  .check-item input[type="checkbox"] { width: 17px; height: 17px; accent-color: var(--teal); cursor: pointer; flex-shrink: 0; }
-  .check-item span { font-size: 14px; color: var(--text); }
-  .field-error { font-size: 12px; color: var(--error); margin-top: 6px; display: none; }
-  .field-error.show { display: block; }
-  .btn-row { display: flex; gap: 10px; padding: 24px 20px 0; max-width: 600px; margin: 0 auto; }
-  .btn { flex: 1; padding: 14px 20px; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; border: none; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
-  .btn:active { transform: scale(0.98); }
-  .btn-primary { background: var(--navy); color: var(--white); box-shadow: 0 4px 14px rgba(0,56,104,0.25); }
-  .btn-primary:hover { box-shadow: 0 6px 18px rgba(0,56,104,0.32); }
-  .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
-  .btn-secondary { background: var(--white); color: var(--navy); border: 1.5px solid var(--border); flex: 0 0 auto; padding: 14px 18px; }
-  .submitting-overlay { display: none; position: fixed; inset: 0; background: rgba(0,56,104,0.75); z-index: 999; align-items: center; justify-content: center; flex-direction: column; gap: 16px; }
-  .submitting-overlay.active { display: flex; }
-  .spinner { width: 44px; height: 44px; border: 3px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.8s linear infinite; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .submitting-overlay p { color: white; font-size: 15px; font-weight: 500; }
-  .success-screen { display: none; padding: 40px 24px; max-width: 600px; margin: 0 auto; text-align: center; animation: fadeIn 0.4s ease; }
-  .success-screen.active { display: block; }
-  .success-icon { width: 72px; height: 72px; background: rgba(22,163,74,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
-  .success-screen h2 { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--navy); margin-bottom: 10px; }
-  .success-screen > p { color: var(--muted); font-size: 15px; line-height: 1.6; margin-bottom: 24px; }
-  .summary-box { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; text-align: left; margin-bottom: 24px; }
-  .summary-box h3 { font-size: 13px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
-  .summary-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 7px 0; border-bottom: 1px solid #f3f4f6; font-size: 14px; gap: 12px; }
-  .summary-row:last-child { border-bottom: none; }
-  .summary-row .s-label { color: var(--muted); flex-shrink: 0; max-width: 45%; }
-  .summary-row .s-value { color: var(--text); font-weight: 500; text-align: right; word-break: break-word; }
-  .btn-new { width: 100%; padding: 14px; background: var(--navy); color: white; border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 14px rgba(0,56,104,0.25); }
-  .submit-error { max-width: 600px; margin: 14px auto 0; padding: 0 20px; font-size: 13px; color: var(--error); display: none; text-align: center; }
-  .submit-error.show { display: block; }
-</style>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily YVN Inspection — KLBD</title>
+  <style>
+    :root { --navy: #003868; --teal: #32A0B0; --orange: #F26C23; --light: #f8f9fa; --success: #28a745; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, var(--navy) 0%, var(--teal) 100%); min-height: 100vh; padding: 20px; }
+    .container { max-width: 500px; margin: 0 auto; background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden; }
+    .header { background: var(--navy); color: white; padding: 24px; text-align: center; }
+    .header h1 { font-size: 1.4rem; font-weight: 600; }
+    .header p { opacity: 0.8; font-size: 0.85rem; margin-top: 4px; }
+    .form-body { padding: 24px; }
+    .progress-bar { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
+    .progress-dot { width: 12px; height: 12px; border-radius: 50%; background: #e0e0e0; transition: all 0.3s; }
+    .progress-dot.active { background: var(--teal); transform: scale(1.3); }
+    .progress-dot.done { background: var(--navy); }
+    .step { display: none; animation: fadeIn 0.3s ease; }
+    .step.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    h2 { color: var(--navy); font-size: 1.1rem; margin-bottom: 16px; }
+    .form-group { margin-bottom: 18px; }
+    label { display: block; font-weight: 600; color: #333; margin-bottom: 6px; font-size: 0.9rem; }
+    select, input, textarea { width: 100%; padding: 12px 14px; border: 2px solid #e8e8e8; border-radius: 10px; font-size: 1rem; transition: all 0.2s; background: #fafafa; }
+    select:focus, input:focus, textarea:focus { outline: none; border-color: var(--teal); background: white; box-shadow: 0 0 0 3px rgba(50,160,176,0.1); }
+    .checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .checkbox-item { display: flex; align-items: center; gap: 8px; padding: 12px; background: #f5f7f9; border-radius: 10px; cursor: pointer; transition: all 0.2s; border: 2px solid transparent; }
+    .checkbox-item:hover { background: #e8f4f6; }
+    .checkbox-item.selected { background: #e3f2fd; border-color: var(--teal); }
+    .checkbox-item input { display: none; }
+    .checkmark { width: 20px; height: 20px; border-radius: 6px; border: 2px solid #ccc; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; }
+    .checkbox-item.selected .checkmark { background: var(--teal); border-color: var(--teal); color: white; }
+    .checkbox-item.selected .checkmark::after { content: '✓'; font-size: 12px; }
+    .time-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .btn { padding: 14px 24px; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+    .btn-primary { background: var(--navy); color: white; }
+    .btn-primary:hover { background: #002a4d; transform: translateY(-1px); }
+    .btn-secondary { background: var(--teal); color: white; }
+    .btn-outline { background: white; color: var(--navy); border: 2px solid var(--navy); }
+    .btn-group { display: flex; gap: 10px; margin-top: 24px; }
+    .btn-group .btn { flex: 1; }
+    .success { text-align: center; padding: 40px; }
+    .success-icon { width: 80px; height: 80px; background: var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 40px; color: white; animation: popIn 0.5s ease; }
+    @keyframes popIn { 0% { transform: scale(0); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+    .error { background: #ffebee; color: #c62828; padding: 12px; border-radius: 10px; margin-bottom: 16px; display: none; font-size: 0.9rem; }
+    .loading { text-align: center; padding: 40px; }
+    .spinner { width: 50px; height: 50px; border: 4px solid #e0e0e0; border-top-color: var(--teal); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (max-width: 500px) { .checkbox-grid { grid-template-columns: 1fr; } .time-row { grid-template-columns: 1fr; } body { padding: 10px; } }
+  </style>
 </head>
 <body>
-
-<div class="submitting-overlay" id="submittingOverlay">
-  <div class="spinner"></div>
-  <p>Submitting your report…</p>
-</div>
-<div class="header">
-  <div class="header-logo">
-<img src="data:image/png;base64,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" alt="KLBD" style="width:40px;height:40px;object-fit:contain;filter:brightness(0) invert(1);">
-  </div>
-  <div class="header-text">
-    <h1>Daily YVN Inspection</h1>
-    <p>KLBD — Kashrut Division</p>
-  </div>
-</div>
-
-<div class="progress-wrap">
-  <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar" style="width:0%"></div></div>
-  <div class="progress-label" id="progressLabel">Step 1 of 3</div>
-</div>
-
-<!-- ══════════════════════════════════════════
-     SECTION 1 — Date & Name (always shown)
-══════════════════════════════════════════ -->
-<div class="section active" id="section1">
-  <div class="section-eyebrow">Daily YVN Inspection Form</div>
-  <div class="section-title">Please fill in this form daily to reflect your visits.</div>
-
-  <div class="card">
-    <div class="card-label"><span class="required-dot"></span>Date</div>
-    <input type="date" id="fieldDate">
-    <div class="field-error" id="errDate">Please select a date.</div>
-  </div>
-
-  <div class="card">
-    <div class="card-label"><span class="required-dot"></span>Name</div>
-    <div class="options-list" id="nameOptions">
-      <label class="option-item" onclick="selectName(this,'Rabbi Hillel Gruber')"><input type="radio" name="name" value="Rabbi Hillel Gruber"> <span>Rabbi Hillel Gruber</span></label>
-      <label class="option-item" onclick="selectName(this,'Rabbi Avromi Kahan')"><input type="radio" name="name" value="Rabbi Avromi Kahan"> <span>Rabbi Avromi Kahan</span></label>
-      <label class="option-item" onclick="selectName(this,'Rabbi Shlomo Katanka')"><input type="radio" name="name" value="Rabbi Shlomo Katanka"> <span>Rabbi Shlomo Katanka</span></label>
-      <label class="option-item" onclick="selectName(this,'Rabbi Michael Kedourie')"><input type="radio" name="name" value="Rabbi Michael Kedourie"> <span>Rabbi Michael Kedourie</span></label>
-      <label class="option-item" onclick="selectName(this,'Rabbi Elie Schoemann')"><input type="radio" name="name" value="Rabbi Elie Schoemann"> <span>Rabbi Elie Schoemann</span></label>
-      <label class="option-item" onclick="selectName(this,'Rabbi Hillel Simon')"><input type="radio" name="name" value="Rabbi Hillel Simon"> <span>Rabbi Hillel Simon</span></label>
-      <label class="option-item" onclick="selectName(this,'Rabbi AR Cohen')"><input type="radio" name="name" value="Rabbi AR Cohen"> <span>Rabbi AR Cohen</span></label>
-      <label class="option-item" onclick="selectName(this,'other')"><input type="radio" name="name" value="other"> <span>Other (add your name under comments)</span></label>
+  <div class="container">
+    <div class="header">
+      <h1>📋 Daily YVN Inspection</h1>
+      <p>KLBD Kosher Certification</p>
     </div>
-    <input type="text" id="otherNameInput" placeholder="Enter your name" style="display:none;margin-top:10px;">
-    <div class="field-error" id="errName">Please select your name.</div>
-  </div>
-
-  <div class="card">
-    <div class="card-label">Your Email Address <span class="optional-tag">Optional</span></div>
-    <div class="card-hint">If you'd like a copy of your submission, enter your email address.</div>
-    <input type="email" id="fieldEmail" placeholder="you@klbd.org.uk">
-    <div class="field-error" id="errEmail">Please enter a valid email address, or leave blank.</div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════
-     SECTION 2 — Personal YVN section
-     (content changes based on who's logged in)
-══════════════════════════════════════════ -->
-<div class="section" id="section2">
-  <div class="section-eyebrow" id="s2eyebrow">Your Section</div>
-  <div class="section-title" id="s2title">Today's Visits</div>
-
-  <!-- GRUBER: Q3 — Less-often establishments visited (checkboxes) -->
-  <div class="card" id="cardGruberVisited" style="display:none;">
-    <div class="card-label">Which establishments that you visit less often did you visit today? <span class="optional-tag">Optional</span></div>
-    <div class="card-hint">Tick all that apply.</div>
-    <div class="check-list" id="gruberVisitedList">
-      <!-- Populated from CSV: Hillel Gruber's establishments -->
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Allenby Market"> <span>Allenby Market</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Bonjour"> <span>Bonjour</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Bread"> <span>Bread</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Brown Bear Bakery"> <span>Brown Bear Bakery</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Burger Bar (Glatt Meat)"> <span>Burger Bar (Glatt Meat)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Cake Street"> <span>Cake Street</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Charlotte's Sourdough"> <span>Charlotte's Sourdough</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Crème de la Crème"> <span>Crème de la Crème</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Georgia's Kitchen & Deli"> <span>Georgia's Kitchen &amp; Deli</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Grunhut Confeetti by Keshet"> <span>Grunhut Confeetti by Keshet</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Hendon Bagel Bakery"> <span>Hendon Bagel Bakery</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Jewish Care (Gruber)"> <span>Jewish Care</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Jewish Futures Trust (JFT)"> <span>Jewish Futures Trust (JFT)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Kaifeng"> <span>Kaifeng</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Komeals Kitchen"> <span>Komeals Kitchen</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Kun Mor George Kiss Home"> <span>Kun Mor George Kiss Home</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Mana Deli"> <span>Mana Deli</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Mother to Mother"> <span>Mother to Mother</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Mr Baker"> <span>Mr Baker</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Omi Sushi"> <span>Omi Sushi</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Parkway Patisserie (Gruber)"> <span>Parkway Patisserie</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Portoberry"> <span>Portoberry</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Sushi Haven (Hendon) Ltd"> <span>Sushi Haven (Hendon)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="Tapuach"> <span>Tapuach</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="gruberVisited" value="The Bagel Place"> <span>The Bagel Place</span></label>
-    </div>
-    <input type="text" id="gruberVisitedOther" placeholder="Other establishment not listed…" style="margin-top:10px;">
-  </div>
-
-  <!-- KEDOURIE: Q4 — Establishments NOT visited (checkboxes) -->
-  <div class="card" id="cardKedourieNotVisited" style="display:none;">
-    <div class="card-label">Which establishments on your rounds you did not manage to visit? <span class="optional-tag">Optional</span></div>
-    <div class="card-hint">Tick all that apply.</div>
-    <div class="check-list">
-      <!-- Populated from CSV: Michael Kedouri's establishments -->
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Ayelet's Luxury Delicatessen"> <span>Ayelet's Luxury Delicatessen</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Bagels Bar (Dairy)"> <span>Bagels Bar (Dairy)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Bagels Bar Grill House (Glatt)"> <span>Bagels Bar Grill House (Glatt)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Beit Cafe"> <span>Beit Cafe</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Booya Gelato"> <span>Booya Gelato</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Carmelli"> <span>Carmelli</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="CoCo Bakery"> <span>CoCo Bakery</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Cohen Bakery"> <span>Cohen Bakery</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Domo"> <span>Domo</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Eli's Pizza (Dairy) Branch"> <span>Eli's Pizza (Dairy) Branch</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Equal (Kisharon)"> <span>Equal (Kisharon)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Fresh to your Door"> <span>Fresh to your Door</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Grodzinski Golders Green"> <span>Grodzinski Golders Green</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Hummus Bar"> <span>Hummus Bar</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Hummus Bar Hendon"> <span>Hummus Bar Hendon</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Kosher Deli (GG)"> <span>Kosher Deli (GG)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Kosher Kingdom"> <span>Kosher Kingdom</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="La Brioche (Kedourie)"> <span>La Brioche</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Leon's Fruit Shop"> <span>Leon's Fruit Shop</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Leveyuson"> <span>Leveyuson</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Menachem's"> <span>Menachem's</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Munch & Crunch"> <span>Munch &amp; Crunch</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Novellino (Dairy)"> <span>Novellino (Dairy)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Novellino Bistro"> <span>Novellino Bistro</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Parkway Patisserie (Kedourie)"> <span>Parkway Patisserie</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Pour Toi Artisan Chocolatier"> <span>Pour Toi Artisan Chocolatier</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Sami's (Glatt Meat)"> <span>Sami's (Glatt Meat)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Slice"> <span>Slice</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Surfin Poke Ltd"> <span>Surfin Poke</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Sushi Haven (Kedourie)"> <span>Sushi Haven</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="Taboon (Dairy)"> <span>Taboon (Dairy)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="TukTuk"> <span>TukTuk</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="White Fish"> <span>White Fish</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kedourieNotVisited" value="White House Express"> <span>White House Express</span></label>
-    </div>
-    <input type="text" id="kedourieNotVisitedOther" placeholder="Other establishment not listed…" style="margin-top:10px;">
-  </div>
-
-  <!-- KEDOURIE: Q5 — Comments (required for Kedourie) -->
-  <div class="card" id="cardKedourieComments" style="display:none;">
-    <div class="card-label"><span class="required-dot"></span>Comments</div>
-    <textarea id="fieldKedourieComments" placeholder="Enter your comments for today…"></textarea>
-    <div class="field-error" id="errKedourieComments">Please enter your comments.</div>
-  </div>
-
-  <!-- KATANKA: establishments visited less often -->
-  <div class="card" id="cardKatankaVisited" style="display:none;">
-    <div class="card-label">Which establishments that you visit less often did you visit today? <span class="optional-tag">Optional</span></div>
-    <div class="card-hint">Tick all that apply.</div>
-    <div class="check-list">
-      <!-- Populated from CSV: Shlomo Katanka's establishments -->
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="1070 Kitchen"> <span>1070 Kitchen</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Balagan"> <span>Balagan</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Eli's Pizza (Dairy) Branch (Katanka)"> <span>Eli's Pizza (Dairy) Branch</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Grodz of Edgware"> <span>Grodz of Edgware</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Just Baked"> <span>Just Baked</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Just Kosher"> <span>Just Kosher</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Kosher Deli (Borehamwood)"> <span>Kosher Deli (Borehamwood)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Kosher Deli (Edgware)"> <span>Kosher Deli (Edgware)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Kosher Edge (formerly Mendy's)"> <span>Kosher Edge (formerly Mendy's)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="La Brioche (Katanka)"> <span>La Brioche</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Nat Jacobs Ltd."> <span>Nat Jacobs</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Parkway Patisserie (Katanka)"> <span>Parkway Patisserie</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Pumpernicks (Dairy)"> <span>Pumpernicks (Dairy)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Rodo Meats"> <span>Rodo Meats</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Sababa"> <span>Sababa</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Sami's (Glatt Meat) Edgware Branch"> <span>Sami's (Glatt Meat) Edgware</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Sharon's Bakery"> <span>Sharon's Bakery</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Sushi Haven (within Hadar)"> <span>Sushi Haven (within Hadar)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Yofi"> <span>Yofi</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaVisited" value="Yossi's Bakery"> <span>Yossi's Bakery</span></label>
-    </div>
-    <input type="text" id="katankaVisitedOther" placeholder="Other establishment not listed…" style="margin-top:10px;">
-  </div>
-
-  <!-- KATANKA: establishments NOT visited -->
-  <div class="card" id="cardKatankaNotVisited" style="display:none;">
-    <div class="card-label">Which establishments on your rounds you did not manage to visit? <span class="optional-tag">Optional</span></div>
-    <div class="card-hint">Tick all that apply.</div>
-    <div class="check-list">
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="1070 Kitchen"> <span>1070 Kitchen</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Balagan"> <span>Balagan</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Eli's Pizza (Dairy) Branch (Katanka)"> <span>Eli's Pizza (Dairy) Branch</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Grodz of Edgware"> <span>Grodz of Edgware</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Just Baked"> <span>Just Baked</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Just Kosher"> <span>Just Kosher</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Kosher Deli (Borehamwood)"> <span>Kosher Deli (Borehamwood)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Kosher Deli (Edgware)"> <span>Kosher Deli (Edgware)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Kosher Edge (formerly Mendy's)"> <span>Kosher Edge (formerly Mendy's)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="La Brioche (Katanka)"> <span>La Brioche</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Nat Jacobs Ltd."> <span>Nat Jacobs</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Parkway Patisserie (Katanka)"> <span>Parkway Patisserie</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Pumpernicks (Dairy)"> <span>Pumpernicks (Dairy)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Rodo Meats"> <span>Rodo Meats</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Sababa"> <span>Sababa</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Sami's (Glatt Meat) Edgware Branch"> <span>Sami's (Glatt Meat) Edgware</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Sharon's Bakery"> <span>Sharon's Bakery</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Sushi Haven (within Hadar)"> <span>Sushi Haven (within Hadar)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Yofi"> <span>Yofi</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="katankaNotVisited" value="Yossi's Bakery"> <span>Yossi's Bakery</span></label>
-    </div>
-    <input type="text" id="katankaNotVisitedOther" placeholder="Other establishment not listed…" style="margin-top:10px;">
-  </div>
-
-  <!-- KAHAN: establishments visited less often (checkboxes) -->
-  <div class="card" id="cardKahanVisited" style="display:none;">
-    <div class="card-label">Which establishments that you visit less often did you visit today? <span class="optional-tag">Optional</span></div>
-    <div class="card-hint">Tick all that apply.</div>
-    <div class="check-list">
-      <!-- Populated from CSV: Avrumi Kahan's establishments -->
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Alpine Frozen Desserts Ltd."> <span>Alpine Frozen Desserts</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Balady"> <span>Balady</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Charedi Dairies Co."> <span>Charedi Dairies Co.</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Cheffmans"> <span>Cheffmans</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Daniels Bakery"> <span>Daniels Bakery</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Goldman's Delights"> <span>Goldman's Delights</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Goldstein Salmon Curers"> <span>Goldstein Salmon Curers</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Habiba's Smokehouse"> <span>Habiba's Smokehouse</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Indulge"> <span>Indulge</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Kasa Bar & Grill"> <span>Kasa Bar &amp; Grill</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Kosher Deli (Temple Fortune)"> <span>Kosher Deli (Temple Fortune)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Moss & Maple"> <span>Moss &amp; Maple</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Novelino Brighton"> <span>Novelino Brighton</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Perele's Cakes"> <span>Perele's Cakes</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Renbake Patisserie Ltd."> <span>Renbake Patisserie</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="S Schwartz"> <span>S Schwartz</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Snowcrest Ltd."> <span>Snowcrest</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="So Real Branch"> <span>So Real Branch</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Swizl"> <span>Swizl</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Tasti Pizza (Dairy)"> <span>Tasti Pizza (Dairy)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Tish"> <span>Tish</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Tony Page Marylebone"> <span>Tony Page Marylebone</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Tuv Taam/Tasti Pizza"> <span>Tuv Taam / Tasti Pizza</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanVisited" value="Woodberry Down (Commercial)"> <span>Woodberry Down (Commercial)</span></label>
-    </div>
-    <input type="text" id="kahanVisitedOther" placeholder="Other establishment not listed…" style="margin-top:10px;">
-  </div>
-
-  <!-- KAHAN: establishments NOT visited -->
-  <div class="card" id="cardKahanNotVisited" style="display:none;">
-    <div class="card-label">Which establishments on your rounds you did not manage to visit? <span class="optional-tag">Optional</span></div>
-    <div class="card-hint">Tick all that apply.</div>
-    <div class="check-list">
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Alpine Frozen Desserts Ltd."> <span>Alpine Frozen Desserts</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Balady"> <span>Balady</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Charedi Dairies Co."> <span>Charedi Dairies Co.</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Cheffmans"> <span>Cheffmans</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Daniels Bakery"> <span>Daniels Bakery</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Goldman's Delights"> <span>Goldman's Delights</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Goldstein Salmon Curers"> <span>Goldstein Salmon Curers</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Habiba's Smokehouse"> <span>Habiba's Smokehouse</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Indulge"> <span>Indulge</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Kasa Bar & Grill"> <span>Kasa Bar &amp; Grill</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Kosher Deli (Temple Fortune)"> <span>Kosher Deli (Temple Fortune)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Moss & Maple"> <span>Moss &amp; Maple</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Novelino Brighton"> <span>Novelino Brighton</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Perele's Cakes"> <span>Perele's Cakes</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Renbake Patisserie Ltd."> <span>Renbake Patisserie</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="S Schwartz"> <span>S Schwartz</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Snowcrest Ltd."> <span>Snowcrest</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="So Real Branch"> <span>So Real Branch</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Swizl"> <span>Swizl</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Tasti Pizza (Dairy)"> <span>Tasti Pizza (Dairy)</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Tish"> <span>Tish</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Tony Page Marylebone"> <span>Tony Page Marylebone</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Tuv Taam/Tasti Pizza"> <span>Tuv Taam / Tasti Pizza</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kahanNotVisited" value="Woodberry Down (Commercial)"> <span>Woodberry Down (Commercial)</span></label>
-    </div>
-    <input type="text" id="kahanNotVisitedOther" placeholder="Other establishment not listed…" style="margin-top:10px;">
-  </div>
-
-  <!-- COHEN: establishments visited (checkboxes) -->
-  <div class="card" id="cardCohenVisited" style="display:none;">
-    <div class="card-label">Which establishments that you visit less often did you visit today? <span class="optional-tag">Optional</span></div>
-    <div class="card-hint">Tick all that apply.</div>
-    <div class="check-list">
-      <!-- Populated from CSV: AR Cohen's establishments -->
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="cohenVisited" value="Fruit & Veg Direct"> <span>Fruit &amp; Veg Direct</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="cohenVisited" value="Fruit2Go"> <span>Fruit2Go</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="cohenVisited" value="Jewish Care"> <span>Jewish Care</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="cohenVisited" value="Jewish Care Holocaust Survivors' Centre"> <span>Jewish Care Holocaust Survivors' Centre</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="cohenVisited" value="Jewish Care Otto Schiff Care Home"> <span>Jewish Care Otto Schiff Care Home</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="cohenVisited" value="Jewish Care Selig Court Restaurant"> <span>Jewish Care Selig Court Restaurant</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="cohenVisited" value="Michael Sobell Jewish Community Centre"> <span>Michael Sobell Jewish Community Centre</span></label>
-    </div>
-    <input type="text" id="cohenVisitedOther" placeholder="Other establishment not listed…" style="margin-top:10px;">
-  </div>
-
-  <!-- SIMON: establishments visited (checkboxes) -->
-  <div class="card" id="cardSimonVisited" style="display:none;">
-    <div class="card-label">Which establishments that you visit less often did you visit today? <span class="optional-tag">Optional</span></div>
-    <div class="card-hint">Tick all that apply.</div>
-    <div class="check-list">
-      <!-- Populated from CSV: Hillel Simon's establishments -->
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="simonVisited" value="DDs Sandwiches"> <span>DDs Sandwiches</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="simonVisited" value="Hermolis & Co. Ltd."> <span>Hermolis &amp; Co.</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="simonVisited" value="Immanuel College"> <span>Immanuel College</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="simonVisited" value="Jewish Care (Simon)"> <span>Jewish Care</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="simonVisited" value="Kosher Deli (Simon)"> <span>Kosher Deli</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="simonVisited" value="Nightingale"> <span>Nightingale</span></label>
-      <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="simonVisited" value="Walnut Tree"> <span>Walnut Tree</span></label>
-    </div>
-    <input type="text" id="simonVisitedOther" placeholder="Other establishment not listed…" style="margin-top:10px;">
-  </div>
-
-  <!-- Comments for "Other" / general -->
-  <div class="card" id="cardGeneralComments" style="display:none;">
-    <div class="card-label">Comments <span class="optional-tag">Optional</span></div>
-    <textarea id="fieldGeneralComments" placeholder="Add your name and any comments here…"></textarea>
-  </div>
-
-</div>
-
-<!-- ══════════════════════════════════════════
-     SECTION 3 — All YVNs (working hours)
-══════════════════════════════════════════ -->
-<div class="section" id="section3">
-  <div class="section-eyebrow">All YVNs</div>
-  <div class="section-title">Working Hours</div>
-
-  <div class="card">
-    <div class="card-label"><span class="required-dot"></span>Start time</div>
-    <input type="time" id="fieldStartTime">
-    <div class="field-error" id="errStartTime">Please enter your start time.</div>
-  </div>
-
-  <div class="card">
-    <div class="card-label"><span class="required-dot"></span>End time</div>
-    <input type="time" id="fieldEndTime">
-    <div class="field-error" id="errEndTime">Please enter your end time.</div>
-  </div>
-
-  <div class="card">
-    <div class="card-label">Breaks taken <span class="optional-tag">Optional</span></div>
-    <div class="break-options" id="breaksOptions">
-      <label class="option-item" onclick="selectBreak(this,'None')"><input type="radio" name="breaks" value="None"> <span>None</span></label>
-      <label class="option-item" onclick="selectBreak(this,'15 minutes')"><input type="radio" name="breaks" value="15 minutes"> <span>15 minutes</span></label>
-      <label class="option-item" onclick="selectBreak(this,'30 minutes')"><input type="radio" name="breaks" value="30 minutes"> <span>30 minutes</span></label>
-      <label class="option-item" onclick="selectBreak(this,'1 hour')"><input type="radio" name="breaks" value="1 hour"> <span>1 hour</span></label>
-      <label class="option-item" onclick="selectBreak(this,'Longer')"><input type="radio" name="breaks" value="Longer"> <span>Longer</span></label>
+    <div class="form-body">
+      <div class="progress-bar">
+        <div class="progress-dot active"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+      </div>
+      <div class="error" id="error"></div>
+      
+      <div class="step active" id="step1">
+        <h2>👤 Your Details</h2>
+        <div class="form-group">
+          <label>Inspector</label>
+          <select id="inspector"><option value="">Select your name...</option></select>
+        </div>
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" id="date">
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="next(1)">Continue →</button>
+        </div>
+      </div>
+      
+      <div class="step" id="step2">
+        <h2>🏢 Establishments Visited</h2>
+        <div class="form-group">
+          <label>Select all that apply:</label>
+          <div class="checkbox-grid" id="establishments"></div>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-outline" onclick="prev(2)">← Back</button>
+          <button class="btn btn-primary" onclick="next(2)">Continue →</button>
+        </div>
+      </div>
+      
+      <div class="step" id="step3">
+        <h2>⏱️ Time & Travel</h2>
+        <div class="form-group">
+          <label>Working Hours</label>
+          <div class="time-row">
+            <input type="time" id="start">
+            <input type="time" id="end">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Break (hours)</label>
+          <input type="number" id="breaks" step="0.5" min="0" value="0">
+        </div>
+        <div class="form-group">
+          <label>Mileage</label>
+          <input type="number" id="miles" min="0" placeholder="Miles driven">
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-outline" onclick="prev(3)">← Back</button>
+          <button class="btn btn-primary" onclick="next(3)">Continue →</button>
+        </div>
+      </div>
+      
+      <div class="step" id="step4">
+        <h2>📝 Issues & Notes</h2>
+        <div class="form-group">
+          <label>Any issues?</label>
+          <textarea id="issues" rows="4" placeholder="Describe any kashrus concerns or notes..."></textarea>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-outline" onclick="prev(4)">← Back</button>
+          <button class="btn btn-secondary" onclick="submit()">Submit ✓</button>
+        </div>
+      </div>
+      
+      <div class="step" id="loading">
+        <div class="loading"><div class="spinner"></div><p>Submitting your report...</p></div>
+      </div>
+      
+      <div class="step" id="success">
+        <div class="success">
+          <div class="success-icon">✓</div>
+          <h2>Submitted!</h2>
+          <p style="color:#666;margin-top:8px">Your inspection report has been recorded.</p>
+          <button class="btn btn-primary" style="margin-top:24px" onclick="reset()">Submit Another</button>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="card">
-    <div class="card-label">Mileage (where applicable) <span class="optional-tag">Optional</span></div>
-    <div class="card-hint">Enter daily total mileage if you travelled by car today.</div>
-    <input type="number" id="fieldMileage" placeholder="e.g. 24" min="0" step="1">
-  </div>
-
-  <div class="card">
-    <div class="card-label">Any issues or exceptions impacting your working time <span class="optional-tag">Optional</span></div>
-    <div class="card-hint">This will appear in your email confirmation.</div>
-    <textarea id="fieldIssues" placeholder="Describe any issues or exceptions…"></textarea>
-  </div>
-</div>
-
-<div class="btn-row" id="btnRow">
-  <button class="btn btn-secondary" id="btnBack" onclick="goBack()" style="display:none;">← Back</button>
-  <button class="btn btn-primary" id="btnNext" onclick="goNext()">Continue →</button>
-</div>
-
-<div class="submit-error" id="submitError">There was a problem submitting. Please try again or contact KLBD.</div>
-
-<!-- SUCCESS -->
-<div class="success-screen" id="successScreen">
-  <div class="success-icon">
-    <svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="18" fill="#16a34a" opacity="0.15"/><path d="M10 18l6 6 10-12" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </div>
-  <h2>Response Recorded</h2>
-  <p>Your daily YVN inspection report has been submitted. A confirmation has been sent to your email address.</p>
-  <div class="summary-box">
-    <h3>Your Submission</h3>
-    <div id="summaryContent"></div>
-  </div>
-  <button class="btn-new" onclick="resetForm()">Submit Another Response</button>
-</div>
-
-<script>
-  // ─────────────────────────────────────────────────────────────────
-  // CONFIGURATION — paste your Apps Script Web App URL here
-  // ─────────────────────────────────────────────────────────────────
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzP4TnPdUgAvBG0d5iaYeZ7CvxOB97_kEJJfhacZAOpHSsrfKVnNcnkLw-81dfN_7akmQ/exec';
-
-  // ─────────────────────────────────────────────────────────────────
-  let currentSection = 1;
-  const TOTAL_SECTIONS = 3;
-  let selectedName = '';
-  let selectedBreakVal = '';
-
-  document.getElementById('fieldDate').valueAsDate = new Date();
-
-  function updateProgress() {
-    document.getElementById('progressBar').style.width = (currentSection / TOTAL_SECTIONS * 100) + '%';
-    document.getElementById('progressLabel').textContent = 'Step ' + currentSection + ' of ' + TOTAL_SECTIONS;
-    document.getElementById('btnBack').style.display = currentSection > 1 ? 'block' : 'none';
-    document.getElementById('btnNext').textContent = currentSection === TOTAL_SECTIONS ? 'Submit →' : 'Continue →';
-  }
-
-  function resolvedName() {
-    return selectedName === 'other'
-      ? document.getElementById('otherNameInput').value.trim()
-      : selectedName;
-  }
-
-  function selectName(el, val) {
-    document.querySelectorAll('#nameOptions .option-item').forEach(function(i) { i.classList.remove('selected'); });
-    el.classList.add('selected');
-    selectedName = val;
-    document.getElementById('otherNameInput').style.display = val === 'other' ? 'block' : 'none';
-    clearErr('errName');
-  }
-
-  function selectBreak(el, val) {
-    document.querySelectorAll('#breaksOptions .option-item').forEach(function(i) { i.classList.remove('selected'); });
-    el.classList.add('selected');
-    selectedBreakVal = val;
-  }
-
-  function toggleCheck(el) { el.classList.toggle('selected'); }
-
-  function clearErr(id) { document.getElementById(id).classList.remove('show'); }
-  function showErr(id)  { document.getElementById(id).classList.add('show'); }
-  function validEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
-
-  // Hide all personal-section cards, then show correct ones for this person
-  function configureSection2() {
-    var name = selectedName;
-    var resolved = resolvedName();
-    document.getElementById('s2eyebrow').textContent = resolved || 'Your Section';
-    document.getElementById('s2title').textContent = 'Today\'s Visits';
-
-    // Hide all
-    ['cardGruberVisited','cardKedourieNotVisited','cardKedourieComments',
-     'cardKatankaVisited','cardKatankaNotVisited',
-     'cardKahanVisited','cardKahanNotVisited',
-     'cardCohenVisited','cardSimonVisited','cardGeneralComments']
-      .forEach(function(id) { document.getElementById(id).style.display = 'none'; });
-
-    // Show correct set
-    if (name === 'Rabbi Hillel Gruber') {
-      show('cardGruberVisited');
-    } else if (name === 'Rabbi Michael Kedourie') {
-      show('cardKedourieNotVisited');
-      show('cardKedourieComments');
-    } else if (name === 'Rabbi Shlomo Katanka') {
-      show('cardKatankaVisited');
-      show('cardKatankaNotVisited');
-    } else if (name === 'Rabbi Avromi Kahan') {
-      show('cardKahanVisited');
-      show('cardKahanNotVisited');
-    } else if (name === 'Rabbi AR Cohen') {
-      show('cardCohenVisited');
-    } else if (name === 'Rabbi Hillel Simon') {
-      show('cardSimonVisited');
-    } else if (name === 'Rabbi Elie Schoemann') {
-      // Caterers section — no establishment checkboxes, just proceed
-    } else {
-      // Other
-      show('cardGeneralComments');
-    }
-  }
-
-  function show(id) { document.getElementById(id).style.display = 'block'; }
-
-  function validateSection(n) {
-    var ok = true;
-    if (n === 1) {
-      if (!document.getElementById('fieldDate').value) { showErr('errDate'); ok = false; }
-      if (!selectedName || (selectedName === 'other' && !document.getElementById('otherNameInput').value.trim())) { showErr('errName'); ok = false; }
-      var emailVal = document.getElementById('fieldEmail').value.trim();
-      if (emailVal && !validEmail(emailVal)) { showErr('errEmail'); ok = false; }
-    }
-    if (n === 2 && selectedName === 'Rabbi Michael Kedourie') {
-      if (!document.getElementById('fieldKedourieComments').value.trim()) { showErr('errKedourieComments'); ok = false; }
-    }
-    if (n === 3) {
-      if (!document.getElementById('fieldStartTime').value) { showErr('errStartTime'); ok = false; }
-      if (!document.getElementById('fieldEndTime').value) { showErr('errEndTime'); ok = false; }
-    }
-    return ok;
-  }
-
-  function goNext() {
-    if (!validateSection(currentSection)) return;
-    if (currentSection === 1) configureSection2();
-    if (currentSection === TOTAL_SECTIONS) { submitForm(); return; }
-    document.getElementById('section' + currentSection).classList.remove('active');
-    currentSection++;
-    document.getElementById('section' + currentSection).classList.add('active');
-    updateProgress();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function goBack() {
-    if (currentSection <= 1) return;
-    document.getElementById('section' + currentSection).classList.remove('active');
-    currentSection--;
-    document.getElementById('section' + currentSection).classList.add('active');
-    updateProgress();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function getChecked(name) {
-    var vals = [];
-    document.querySelectorAll('input[name="' + name + '"]:checked').forEach(function(el) { vals.push(el.value); });
-    return vals.join(', ');
-  }
-
-  function fmt(t) {
-    if (!t) return '—';
-    var parts = t.split(':');
-    var hr = parseInt(parts[0]);
-    return (hr % 12 || 12) + ':' + parts[1] + (hr >= 12 ? 'pm' : 'am');
-  }
-
-  function v(id) { return document.getElementById(id).value.trim(); }
-
-  function buildData() {
-    var name = selectedName;
-    return {
-      timestamp:              new Date().toISOString(),
-      date:                   new Date(v('fieldDate') + 'T12:00:00').toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long', year:'numeric' }),
-      name:                   resolvedName(),
-      email:                  v('fieldEmail'),
-      // Establishment selections — each YVN's own fields
-      gruberVisited:          getChecked('gruberVisited'),
-      gruberVisitedOther:     v('gruberVisitedOther'),
-      kedourieNotVisited:     getChecked('kedourieNotVisited'),
-      kedourieNotVisitedOther:v('kedourieNotVisitedOther'),
-      kedourieComments:       v('fieldKedourieComments'),
-      katankaVisited:         getChecked('katankaVisited'),
-      katankaVisitedOther:    v('katankaVisitedOther'),
-      katankaNotVisited:      getChecked('katankaNotVisited'),
-      katankaNotVisitedOther: v('katankaNotVisitedOther'),
-      kahanVisited:           getChecked('kahanVisited'),
-      kahanVisitedOther:      v('kahanVisitedOther'),
-      kahanNotVisited:        getChecked('kahanNotVisited'),
-      kahanNotVisitedOther:   v('kahanNotVisitedOther'),
-      cohenVisited:           getChecked('cohenVisited'),
-      cohenVisitedOther:      v('cohenVisitedOther'),
-      simonVisited:           getChecked('simonVisited'),
-      simonVisitedOther:      v('simonVisitedOther'),
-      generalComments:        v('fieldGeneralComments'),
-      // All YVNs
-      startTime:              fmt(document.getElementById('fieldStartTime').value),
-      endTime:                fmt(document.getElementById('fieldEndTime').value),
-      breaks:                 selectedBreakVal || '—',
-      mileage:                v('fieldMileage'),
-      issues:                 v('fieldIssues'),
-    };
-  }
-
-  function buildSummaryHTML(d) {
-    var rows = [
-      ['Date', d.date],
-      ['Inspector', d.name],
-      ['Start Time', d.startTime],
-      ['End Time', d.endTime],
-      ['Breaks Taken', d.breaks],
-    ];
-    if (d.mileage) rows.push(['Mileage', d.mileage + ' miles']);
-    // Add whichever fields have content
-    var estabRows = [
-      ['Establishments Visited (less often)', [d.gruberVisited, d.gruberVisitedOther].filter(Boolean).join(', ')],
-      ['Establishments Not Visited', [d.kedourieNotVisited, d.kedourieNotVisitedOther].filter(Boolean).join(', ')],
-      ['Comments', d.kedourieComments],
-      ['Establishments Visited (less often)', [d.katankaVisited, d.katankaVisitedOther].filter(Boolean).join(', ')],
-      ['Establishments Not Visited', [d.katankaNotVisited, d.katankaNotVisitedOther].filter(Boolean).join(', ')],
-      ['Establishments Visited (less often)', [d.kahanVisited, d.kahanVisitedOther].filter(Boolean).join(', ')],
-      ['Establishments Not Visited', [d.kahanNotVisited, d.kahanNotVisitedOther].filter(Boolean).join(', ')],
-      ['Establishments Visited (less often)', [d.cohenVisited, d.cohenVisitedOther].filter(Boolean).join(', ')],
-      ['Establishments Visited (less often)', [d.simonVisited, d.simonVisitedOther].filter(Boolean).join(', ')],
-      ['Comments', d.generalComments],
-      ['Issues / Exceptions', d.issues],
-    ];
-    estabRows.forEach(function(pair) { if (pair[1]) rows.push(pair); });
-    return rows.map(function(pair) {
-      return '<div class="summary-row"><span class="s-label">' + pair[0] + '</span><span class="s-value">' + pair[1] + '</span></div>';
-    }).join('');
-  }
-
-  async function submitForm() {
-    var data = buildData();
-    document.getElementById('submittingOverlay').classList.add('active');
-    document.getElementById('btnNext').disabled = true;
-    document.getElementById('submitError').classList.remove('show');
-    try {
-      await fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+  
+  <script>
+    var data = {};
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('date').value = new Date().toISOString().split('T')[0];
+      google.script.run.withSuccessHandler(function(result) {
+        var select = document.getElementById('inspector');
+        result.inspectors.forEach(function(insp) {
+          var option = document.createElement('option');
+          option.value = insp.name;
+          option.textContent = insp.name;
+          option.dataset.email = insp.email;
+          select.appendChild(option);
+        });
+        var container = document.getElementById('establishments');
+        result.establishments.forEach(function(est) {
+          var item = document.createElement('label');
+          item.className = 'checkbox-item';
+          item.innerHTML = '<input type="checkbox" value="' + est + '"><span class="checkmark"></span><span>' + est + '</span>';
+          item.onclick = function(e) {
+            if (e.target.tagName !== 'INPUT') {
+              this.classList.toggle('selected');
+              this.querySelector('input').checked = this.classList.contains('selected');
+            } else { this.classList.toggle('selected', e.target.checked); }
+          };
+          container.appendChild(item);
+        });
+      }).getFormData();
+    });
+    
+    function showStep(id) {
+      document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+      document.getElementById(id).classList.add('active');
+      var dots = document.querySelectorAll('.progress-dot');
+      var stepNum = parseInt(id.replace('step', '')) || 5;
+      dots.forEach(function(dot, i) {
+        dot.classList.remove('active', 'done');
+        if (i + 1 === stepNum) dot.classList.add('active');
+        else if (i + 1 < stepNum) dot.classList.add('done');
       });
-      showSuccess(data);
-    } catch(err) {
-      document.getElementById('submittingOverlay').classList.remove('active');
-      document.getElementById('btnNext').disabled = false;
-      document.getElementById('submitError').classList.add('show');
     }
-  }
-
-  function showSuccess(data) {
-    document.getElementById('submittingOverlay').classList.remove('active');
-    document.getElementById('summaryContent').innerHTML = buildSummaryHTML(data);
-    document.getElementById('section' + currentSection).classList.remove('active');
-    document.getElementById('btnRow').style.display = 'none';
-    document.getElementById('submitError').style.display = 'none';
-    document.getElementById('progressBar').style.width = '100%';
-    document.getElementById('progressLabel').textContent = 'Complete';
-    document.getElementById('successScreen').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function resetForm() { location.reload(); }
-
-  updateProgress();
-</script>
-
+    
+    function showError(msg) {
+      var el = document.getElementById('error');
+      el.textContent = msg;
+      el.style.display = 'block';
+      setTimeout(function() { el.style.display = 'none'; }, 4000);
+    }
+    
+    function next(step) {
+      if (step === 1) {
+        if (!document.getElementById('inspector').value || !document.getElementById('date').value) return showError('Please fill in all fields');
+        data.inspector = document.getElementById('inspector').value;
+        data.email = document.getElementById('inspector').selectedOptions[0].dataset.email;
+        data.date = document.getElementById('date').value;
+      }
+      if (step === 2) {
+        var selected = document.querySelectorAll('#establishments input:checked');
+        if (!selected.length) return showError('Select at least one establishment');
+        data.establishments = Array.from(selected).map(function(cb) { return cb.value; });
+      }
+      if (step === 3) {
+        if (!document.getElementById('start').value || !document.getElementById('end').value) return showError('Enter start and end times');
+        data.start = document.getElementById('start').value;
+        data.end = document.getElementById('end').value;
+        data.breaks = document.getElementById('breaks').value || 0;
+        data.miles = document.getElementById('miles').value || 0;
+      }
+      showStep('step' + (step + 1));
+    }
+    
+    function prev(step) { showStep('step' + (step - 1)); }
+    
+    function submit() {
+      data.issues = document.getElementById('issues').value;
+      var s = data.start.split(':'), e = data.end.split(':');
+      var startMins = parseInt(s[0]) * 60 + parseInt(s[1]);
+      var endMins = parseInt(e[0]) * 60 + parseInt(e[1]);
+      data.hours = ((endMins - startMins) / 60 - parseFloat(data.breaks)).toFixed(1);
+      showStep('loading');
+      google.script.run.withSuccessHandler(function() { showStep('success'); })
+        .withFailureHandler(function(err) { showError(err.message); showStep('step4'); })
+        .submitInspection(data);
+    }
+    
+    function reset() {
+      data = {};
+      document.getElementById('inspector').value = '';
+      document.getElementById('date').value = new Date().toISOString().split('T')[0];
+      document.querySelectorAll('.checkbox-item').forEach(function(item) { item.classList.remove('selected'); item.querySelector('input').checked = false; });
+      document.getElementById('start').value = '';
+      document.getElementById('end').value = '';
+      document.getElementById('breaks').value = '0';
+      document.getElementById('miles').value = '';
+      document.getElementById('issues').value = '';
+      showStep('step1');
+    }
+  </script>
 </body>
 </html>
