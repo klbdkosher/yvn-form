@@ -6,7 +6,12 @@
     <title>Daily YVN Inspection — KLBD</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* ============================================
+           KLBD Design System - Based on kosher.org.uk
+           ============================================ */
+        
         :root {
+            /* Primary Colors - extracted from kosher.org.uk */
             --klbd-navy: #003868;
             --klbd-teal: #32A0B0;
             --klbd-light-teal: #D6ECF0;
@@ -14,6 +19,8 @@
             --klbd-off-white: #F6F6FF;
             --klbd-dark-gray: #212121;
             --klbd-light-gray: #F4F4F4;
+            
+            /* Semantic Colors */
             --color-primary: var(--klbd-navy);
             --color-accent: var(--klbd-teal);
             --color-background: var(--klbd-off-white);
@@ -23,106 +30,622 @@
             --color-border: #E5E7EB;
             --color-success: #059669;
             --color-error: #DC2626;
+            
+            /* Typography */
             --font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            
+            /* Spacing */
             --spacing-xs: 4px;
             --spacing-sm: 8px;
             --spacing-md: 16px;
             --spacing-lg: 24px;
             --spacing-xl: 32px;
             --spacing-2xl: 48px;
+            
+            /* Border Radius */
             --radius-sm: 4px;
             --radius-md: 8px;
             --radius-lg: 12px;
+            
+            /* Shadows */
             --shadow-sm: 0 1px 2px rgba(0, 56, 104, 0.05);
             --shadow-md: 0 4px 6px rgba(0, 56, 104, 0.07);
             --shadow-lg: 0 10px 25px rgba(0, 56, 104, 0.1);
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: var(--font-family); background: var(--color-background); color: var(--color-text); min-height: 100vh; line-height: 1.6; }
-        .header { background: var(--klbd-navy); padding: var(--spacing-md) var(--spacing-lg); position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow-md); }
-        .header-content { max-width: 600px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: var(--spacing-md); }
-        .header-logo { width: 48px; height: 48px; }
-        .header-logo svg { width: 100%; height: 100%; fill: var(--klbd-white); }
-        .header-text { text-align: center; }
-        .header-title { color: var(--klbd-white); font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; }
-        .header-subtitle { color: var(--klbd-light-teal); font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
-        .container { max-width: 600px; margin: 0 auto; padding: var(--spacing-lg); }
-        .progress-wrap { background: var(--klbd-navy); padding: 0 var(--spacing-lg) var(--spacing-md); margin: 0 calc(-1 * var(--spacing-lg)); margin-top: calc(-1 * var(--spacing-lg)); margin-bottom: var(--spacing-lg); }
-        .progress-bar-bg { background: rgba(255, 255, 255, 0.15); border-radius: 99px; height: 6px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background: var(--klbd-teal); border-radius: 99px; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .progress-label { font-size: 0.75rem; color: rgba(255, 255, 255, 0.7); text-align: right; margin-top: var(--spacing-xs); font-weight: 500; }
-        .section { display: none; animation: fadeIn 0.3s ease; }
-        .section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        .section-eyebrow { font-size: 0.75rem; font-weight: 600; color: var(--klbd-teal); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--spacing-sm); }
-        .section-title { font-size: 1.5rem; font-weight: 700; color: var(--klbd-navy); margin-bottom: var(--spacing-lg); line-height: 1.3; }
-        .card { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: var(--spacing-xl); margin-bottom: var(--spacing-lg); }
-        .card-label { font-size: 0.875rem; font-weight: 600; color: var(--klbd-navy); margin-bottom: var(--spacing-md); display: flex; align-items: center; gap: var(--spacing-sm); }
-        .required-dot { width: 6px; height: 6px; background: var(--klbd-teal); border-radius: 50%; flex-shrink: 0; }
-        .card-hint { font-size: 0.8125rem; color: var(--color-text-light); margin-bottom: var(--spacing-md); }
-        .radio-option { display: block; padding: var(--spacing-md); margin-bottom: var(--spacing-sm); background: var(--klbd-off-white); border: 2px solid transparent; border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s ease; }
-        .radio-option:hover { background: var(--klbd-light-teal); border-color: var(--klbd-teal); }
-        .radio-option input { display: none; }
-        .radio-option input:checked + .radio-label { color: var(--klbd-navy); font-weight: 600; }
-        .radio-option:has(input:checked) { background: var(--klbd-light-teal); border-color: var(--klbd-teal); }
-        .radio-label { font-size: 0.9375rem; color: var(--color-text); display: flex; align-items: center; gap: var(--spacing-sm); }
-        .radio-label::before { content: ''; width: 20px; height: 20px; border: 2px solid var(--color-border); border-radius: 50%; flex-shrink: 0; transition: all 0.2s ease; }
-        .radio-option input:checked + .radio-label::before { border-color: var(--klbd-teal); background: var(--klbd-teal); box-shadow: inset 0 0 0 4px var(--klbd-white); }
-        .checkbox-grid { display: grid; gap: var(--spacing-sm); }
-        .checkbox-option { display: block; padding: var(--spacing-md); background: var(--klbd-off-white); border: 2px solid transparent; border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s ease; }
-        .checkbox-option:hover { background: var(--klbd-light-teal); }
-        .checkbox-option input { display: none; }
-        .checkbox-option:has(input:checked) { background: var(--klbd-light-teal); border-color: var(--klbd-teal); }
-        .checkbox-label { font-size: 0.875rem; color: var(--color-text); display: flex; align-items: center; gap: var(--spacing-sm); }
-        .checkbox-label::before { content: ''; width: 20px; height: 20px; border: 2px solid var(--color-border); border-radius: var(--radius-sm); flex-shrink: 0; transition: all 0.2s ease; }
-        .checkbox-option input:checked + .checkbox-label::before { border-color: var(--klbd-teal); background: var(--klbd-teal); background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3E%3C/svg%3E"); background-size: 14px; background-position: center; background-repeat: no-repeat; }
-        .checkbox-option input:checked + .checkbox-label { color: var(--klbd-navy); font-weight: 500; }
-        input[type="text"], input[type="email"], input[type="time"], input[type="number"], input[type="date"], textarea { width: 100%; padding: var(--spacing-md); border: 2px solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-family); font-size: 1rem; color: var(--color-text); background: var(--klbd-white); transition: all 0.2s ease; }
-        input:focus, textarea:focus { outline: none; border-color: var(--klbd-teal); box-shadow: 0 0 0 3px rgba(50, 160, 176, 0.15); }
-        textarea { resize: vertical; min-height: 90px; }
-        select { width: 100%; padding: var(--spacing-md); border: 2px solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-family); font-size: 1rem; color: var(--color-text); background: var(--klbd-white); cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23003868'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px; }
-        select:focus { outline: none; border-color: var(--klbd-teal); box-shadow: 0 0 0 3px rgba(50, 160, 176, 0.15); }
-        .time-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md); }
-        .time-field label { font-size: 0.8125rem; font-weight: 500; color: var(--color-text-light); display: block; margin-bottom: var(--spacing-xs); }
-        .btn-row { display: flex; gap: var(--spacing-md); margin-top: var(--spacing-lg); }
-        .btn { flex: 1; padding: var(--spacing-md) var(--spacing-lg); border: none; border-radius: var(--radius-md); font-family: var(--font-family); font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: var(--spacing-sm); }
-        .btn-primary { background: var(--klbd-navy); color: var(--klbd-white); }
-        .btn-primary:hover { background: #004a80; transform: translateY(-1px); box-shadow: var(--shadow-md); }
-        .btn-primary:active { transform: translateY(0); }
-        .btn-secondary { background: var(--klbd-off-white); color: var(--klbd-navy); border: 2px solid var(--color-border); }
-        .btn-secondary:hover { background: var(--klbd-light-teal); border-color: var(--klbd-teal); }
-        .btn-new { background: var(--klbd-teal); color: var(--klbd-white); }
-        .btn-new:hover { background: #2b8a98; }
-        .error-message { display: none; color: var(--color-error); font-size: 0.8125rem; margin-top: var(--spacing-sm); }
-        .submit-error { display: none; background: #FEE2E2; color: var(--color-error); padding: var(--spacing-md); border-radius: var(--radius-md); margin-bottom: var(--spacing-lg); font-size: 0.875rem; }
-        .success-screen { display: none; text-align: center; padding: var(--spacing-2xl) var(--spacing-lg); }
-        .success-icon { width: 80px; height: 80px; background: var(--klbd-light-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--spacing-lg); }
-        .success-icon svg { width: 40px; height: 40px; stroke: var(--klbd-teal); }
-        .success-title { font-size: 1.5rem; font-weight: 700; color: var(--klbd-navy); margin-bottom: var(--spacing-sm); }
-        .success-message { color: var(--color-text-light); margin-bottom: var(--spacing-xl); }
-        .summary-box { background: var(--klbd-off-white); border-radius: var(--radius-md); padding: var(--spacing-lg); text-align: left; margin-bottom: var(--spacing-lg); }
-        .summary-box h4 { font-size: 0.875rem; font-weight: 600; color: var(--klbd-navy); margin-bottom: var(--spacing-md); }
-        .submitting-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 56, 104, 0.9); z-index: 1000; align-items: center; justify-content: center; flex-direction: column; gap: var(--spacing-lg); }
-        .submitting-overlay.active { display: flex; }
-        .spinner { width: 48px; height: 48px; border: 4px solid rgba(255, 255, 255, 0.2); border-top-color: var(--klbd-teal); border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .submitting-text { color: var(--klbd-white); font-size: 1.125rem; font-weight: 500; }
-        .footer { background: var(--klbd-navy); padding: var(--spacing-lg); margin-top: var(--spacing-2xl); }
-        .footer-content { max-width: 600px; margin: 0 auto; text-align: center; }
-        .footer-text { color: rgba(255, 255, 255, 0.7); font-size: 0.75rem; }
-        .footer-link { color: var(--klbd-teal); text-decoration: none; }
-        .footer-link:hover { text-decoration: underline; }
-        @media (max-width: 480px) { .container { padding: var(--spacing-md); } .card { padding: var(--spacing-lg); } .time-row { grid-template-columns: 1fr; } .btn-row { flex-direction: column; } }
-        .optional-tag { font-size: 0.75rem; font-weight: 400; color: var(--color-text-light); font-style: italic; }
-        .form-group { margin-bottom: var(--spacing-md); }
-        .form-group:last-child { margin-bottom: 0; }
-        .form-group label { font-size: 0.8125rem; font-weight: 500; color: var(--color-text-light); display: block; margin-bottom: var(--spacing-xs); }
+
+        /* Reset & Base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--color-background);
+            color: var(--color-text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: var(--klbd-navy);
+            padding: var(--spacing-md) var(--spacing-lg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-content {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-md);
+        }
+
+        .header-logo {
+            width: 48px;
+            height: 48px;
+        }
+
+        .header-logo svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--klbd-white);
+        }
+
+        .header-text {
+            text-align: center;
+        }
+
+        .header-title {
+            color: var(--klbd-white);
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .header-subtitle {
+            color: var(--klbd-light-teal);
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+        }
+
+        /* Progress Bar */
+        .progress-wrap {
+            background: var(--klbd-navy);
+            padding: 0 var(--spacing-lg) var(--spacing-md);
+            margin: 0 calc(-1 * var(--spacing-lg));
+            margin-top: calc(-1 * var(--spacing-lg));
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .progress-bar-bg {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 99px;
+            height: 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--klbd-teal);
+            border-radius: 99px;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .progress-label {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: right;
+            margin-top: var(--spacing-xs);
+            font-weight: 500;
+        }
+
+        /* Section Styling */
+        .section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-eyebrow {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--klbd-teal);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--klbd-navy);
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.3;
+        }
+
+        /* Card */
+        .card {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .card-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--klbd-navy);
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .required-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--klbd-teal);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .card-hint {
+            font-size: 0.8125rem;
+            color: var(--color-text-light);
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* Radio Options (Inspector Selection) */
+        .radio-option {
+            display: block;
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+            background: var(--klbd-off-white);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .radio-option:hover {
+            background: var(--klbd-light-teal);
+            border-color: var(--klbd-teal);
+        }
+
+        .radio-option input {
+            display: none;
+        }
+
+        .radio-option input:checked + .radio-label {
+            color: var(--klbd-navy);
+            font-weight: 600;
+        }
+
+        .radio-option:has(input:checked) {
+            background: var(--klbd-light-teal);
+            border-color: var(--klbd-teal);
+        }
+
+        .radio-label {
+            font-size: 0.9375rem;
+            color: var(--color-text);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .radio-label::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--color-border);
+            border-radius: 50%;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .radio-option input:checked + .radio-label::before {
+            border-color: var(--klbd-teal);
+            background: var(--klbd-teal);
+            box-shadow: inset 0 0 0 4px var(--klbd-white);
+        }
+
+        /* Checkbox Options (Establishments) */
+        .checkbox-grid {
+            display: grid;
+            gap: var(--spacing-sm);
+        }
+
+        .checkbox-option {
+            display: block;
+            padding: var(--spacing-md);
+            background: var(--klbd-off-white);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-option:hover {
+            background: var(--klbd-light-teal);
+        }
+
+        .checkbox-option input {
+            display: none;
+        }
+
+        .checkbox-option:has(input:checked) {
+            background: var(--klbd-light-teal);
+            border-color: var(--klbd-teal);
+        }
+
+        .checkbox-label {
+            font-size: 0.875rem;
+            color: var(--color-text);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .checkbox-label::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-option input:checked + .checkbox-label::before {
+            border-color: var(--klbd-teal);
+            background: var(--klbd-teal);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3E%3C/svg%3E");
+            background-size: 14px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .checkbox-option input:checked + .checkbox-label {
+            color: var(--klbd-navy);
+            font-weight: 500;
+        }
+
+        /* Text Inputs */
+        input[type="text"],
+        input[type="email"],
+        input[type="time"],
+        input[type="number"],
+        input[type="date"],
+        textarea {
+            width: 100%;
+            padding: var(--spacing-md);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-family: var(--font-family);
+            font-size: 1rem;
+            color: var(--color-text);
+            background: var(--klbd-white);
+            transition: all 0.2s ease;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--klbd-teal);
+            box-shadow: 0 0 0 3px rgba(50, 160, 176, 0.15);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        /* Select Dropdown */
+        select {
+            width: 100%;
+            padding: var(--spacing-md);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-family: var(--font-family);
+            font-size: 1rem;
+            color: var(--color-text);
+            background: var(--klbd-white);
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23003868'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 20px;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--klbd-teal);
+            box-shadow: 0 0 0 3px rgba(50, 160, 176, 0.15);
+        }
+
+        /* Time Row */
+        .time-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-md);
+        }
+
+        .time-field label {
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--color-text-light);
+            display: block;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        /* Buttons */
+        .btn-row {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+
+        .btn {
+            flex: 1;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: var(--font-family);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+        }
+
+        .btn-primary {
+            background: var(--klbd-navy);
+            color: var(--klbd-white);
+        }
+
+        .btn-primary:hover {
+            background: #004a80;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: var(--klbd-off-white);
+            color: var(--klbd-navy);
+            border: 2px solid var(--color-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--klbd-light-teal);
+            border-color: var(--klbd-teal);
+        }
+
+        .btn-new {
+            background: var(--klbd-teal);
+            color: var(--klbd-white);
+        }
+
+        .btn-new:hover {
+            background: #2b8a98;
+        }
+
+        /* Error State */
+        .error-message {
+            display: none;
+            color: var(--color-error);
+            font-size: 0.8125rem;
+            margin-top: var(--spacing-sm);
+        }
+
+        .submit-error {
+            display: none;
+            background: #FEE2E2;
+            color: var(--color-error);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-lg);
+            font-size: 0.875rem;
+        }
+
+        /* Success Screen */
+        .success-screen {
+            display: none;
+            text-align: center;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--klbd-light-teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-lg);
+        }
+
+        .success-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: var(--klbd-teal);
+        }
+
+        .success-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--klbd-navy);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .success-message {
+            color: var(--color-text-light);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .summary-box {
+            background: var(--klbd-off-white);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            text-align: left;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .summary-box h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--klbd-navy);
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* Submitting Overlay */
+        .submitting-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 56, 104, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+
+        .submitting-overlay.active {
+            display: flex;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-top-color: var(--klbd-teal);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .submitting-text {
+            color: var(--klbd-white);
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--klbd-navy);
+            padding: var(--spacing-lg);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.75rem;
+        }
+
+        .footer-link {
+            color: var(--klbd-teal);
+            text-decoration: none;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                padding: var(--spacing-md);
+            }
+            
+            .card {
+                padding: var(--spacing-lg);
+            }
+            
+            .time-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-row {
+                flex-direction: column;
+            }
+        }
+
+        /* Optional Tag */
+        .optional-tag {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--color-text-light);
+            font-style: italic;
+        }
+
+        /* Inline form groups */
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-group label {
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--color-text-light);
+            display: block;
+            margin-bottom: var(--spacing-xs);
+        }
     </style>
 </head>
 <body>
+    <!-- Header -->
     <header class="header">
         <div class="header-content">
             <div class="header-logo">
+                <!-- KLBD Logo SVG -->
                 <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
                     <path d="M50 5 L95 35 L95 40 L50 15 L5 40 L5 35 Z" fill="currentColor"/>
                     <path d="M15 42 L15 70 L40 70 L40 50 L60 50 L60 70 L85 70 L85 42 L50 20 Z" fill="currentColor"/>
@@ -135,108 +658,468 @@
             </div>
         </div>
     </header>
+
+    <!-- Main Form -->
     <main class="container">
+        <!-- Progress Bar -->
         <div class="progress-wrap">
-            <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar" style="width: 0%"></div></div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBar" style="width: 0%"></div>
+            </div>
             <div class="progress-label" id="progressLabel">Step 1 of 4</div>
         </div>
+
+        <!-- Section 1: Inspector Selection -->
         <section class="section active" id="section1">
             <div class="section-eyebrow">Step 1</div>
             <h2 class="section-title">Select Your Name</h2>
+            
             <div class="card">
-                <div class="card-label"><span class="required-dot"></span>Inspector</div>
-                <label class="radio-option"><input type="radio" name="inspector" value="Rabbi Hillel Gruber" required><span class="radio-label">Rabbi Hillel Gruber</span></label>
-                <label class="radio-option"><input type="radio" name="inspector" value="Rabbi Avromi Kahan"><span class="radio-label">Rabbi Avromi Kahan</span></label>
-                <label class="radio-option"><input type="radio" name="inspector" value="Rabbi Shlomo Katanka"><span class="radio-label">Rabbi Shlomo Katanka</span></label>
-                <label class="radio-option"><input type="radio" name="inspector" value="Rabbi Michael Kedourie"><span class="radio-label">Rabbi Michael Kedourie</span></label>
-                <label class="radio-option"><input type="radio" name="inspector" value="Rabbi Elie Schoemann"><span class="radio-label">Rabbi Elie Schoemann</span></label>
-                <label class="radio-option"><input type="radio" name="inspector" value="Rabbi Hillel Simon"><span class="radio-label">Rabbi Hillel Simon</span></label>
-                <label class="radio-option"><input type="radio" name="inspector" value="Rabbi AR Cohen"><span class="radio-label">Rabbi AR Cohen</span></label>
-                <label class="radio-option"><input type="radio" name="inspector" value="Other"><span class="radio-label">Other (add name in comments)</span></label>
+                <div class="card-label">
+                    <span class="required-dot"></span>
+                    Inspector
+                </div>
+                
+                <label class="radio-option">
+                    <input type="radio" name="inspector" value="Rabbi Hillel Gruber" required>
+                    <span class="radio-label">Rabbi Hillel Gruber</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="inspector" value="Rabbi Avromi Kahan">
+                    <span class="radio-label">Rabbi Avromi Kahan</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="inspector" value="Rabbi Shlomo Katanka">
+                    <span class="radio-label">Rabbi Shlomo Katanka</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="inspector" value="Rabbi Michael Kedourie">
+                    <span class="radio-label">Rabbi Michael Kedourie</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="inspector" value="Rabbi Elie Schoemann">
+                    <span class="radio-label">Rabbi Elie Schoemann</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="inspector" value="Rabbi Hillel Simon">
+                    <span class="radio-label">Rabbi Hillel Simon</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="inspector" value="Rabbi AR Cohen">
+                    <span class="radio-label">Rabbi AR Cohen</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="inspector" value="Other">
+                    <span class="radio-label">Other (add name in comments)</span>
+                </label>
             </div>
+
             <div class="card">
-                <div class="card-label">Email Address <span class="optional-tag">Optional</span></div>
+                <div class="card-label">
+                    Email Address <span class="optional-tag">Optional</span>
+                </div>
                 <div class="card-hint">If you'd like a copy of your submission</div>
                 <input type="email" id="email" placeholder="you@klbd.org.uk">
             </div>
-            <div class="btn-row"><button type="button" class="btn btn-primary" onclick="nextSection(1)">Continue <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
+
+            <div class="btn-row">
+                <button type="button" class="btn btn-primary" onclick="nextSection(1)">
+                    Continue
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </div>
         </section>
+
+        <!-- Section 2: Establishments Visited -->
         <section class="section" id="section2">
             <div class="section-eyebrow">Step 2</div>
             <h2 class="section-title">Establishments Visited</h2>
+            
             <div class="card">
-                <div class="card-label"><span class="required-dot"></span>Select all establishments you visited today</div>
-                <div class="checkbox-grid" id="establishmentsGrid"></div>
+                <div class="card-label">
+                    <span class="required-dot"></span>
+                    Select all establishments you visited today
+                </div>
+                
+                <div class="checkbox-grid" id="establishmentsGrid">
+                    <!-- Populated dynamically based on inspector -->
+                </div>
             </div>
+
             <div class="card">
-                <div class="card-label">Other Establishments <span class="optional-tag">Optional</span></div>
+                <div class="card-label">
+                    Other Establishments <span class="optional-tag">Optional</span>
+                </div>
                 <textarea id="otherEstablishments" placeholder="Enter any additional establishments not listed above..."></textarea>
             </div>
-            <div class="btn-row"><button type="button" class="btn btn-secondary" onclick="prevSection(2)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back</button><button type="button" class="btn btn-primary" onclick="nextSection(2)">Continue <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
+
+            <div class="btn-row">
+                <button type="button" class="btn btn-secondary" onclick="prevSection(2)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Back
+                </button>
+                <button type="button" class="btn btn-primary" onclick="nextSection(2)">
+                    Continue
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </div>
         </section>
+
+        <!-- Section 3: Time & Mileage -->
         <section class="section" id="section3">
             <div class="section-eyebrow">Step 3</div>
             <h2 class="section-title">Time &amp; Mileage</h2>
+            
             <div class="card">
-                <div class="card-label"><span class="required-dot"></span>Working Hours</div>
-                <div class="time-row"><div class="time-field"><label for="startTime">Start Time</label><input type="time" id="startTime" required></div><div class="time-field"><label for="endTime">End Time</label><input type="time" id="endTime" required></div></div>
+                <div class="card-label">
+                    <span class="required-dot"></span>
+                    Working Hours
+                </div>
+                
+                <div class="time-row">
+                    <div class="time-field">
+                        <label for="startTime">Start Time</label>
+                        <input type="time" id="startTime" required>
+                    </div>
+                    <div class="time-field">
+                        <label for="endTime">End Time</label>
+                        <input type="time" id="endTime" required>
+                    </div>
+                </div>
             </div>
+
             <div class="card">
-                <div class="form-group"><div class="card-label">Breaks Taken</div><select id="breaks"><option value="None">No breaks</option><option value="15 minutes">15 minutes</option><option value="30 minutes">30 minutes</option><option value="1 hour">1 hour</option><option value="Longer">Longer than 1 hour</option></select></div>
+                <div class="form-group">
+                    <div class="card-label">Breaks Taken</div>
+                    <select id="breaks">
+                        <option value="None">No breaks</option>
+                        <option value="15 minutes">15 minutes</option>
+                        <option value="30 minutes">30 minutes</option>
+                        <option value="1 hour">1 hour</option>
+                        <option value="Longer">Longer than 1 hour</option>
+                    </select>
+                </div>
             </div>
+
             <div class="card">
-                <div class="card-label">Mileage <span class="optional-tag">Optional</span></div>
+                <div class="card-label">
+                    Mileage <span class="optional-tag">Optional</span>
+                </div>
                 <input type="number" id="mileage" placeholder="Total miles driven today">
             </div>
-            <div class="btn-row"><button type="button" class="btn btn-secondary" onclick="prevSection(3)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back</button><button type="button" class="btn btn-primary" onclick="nextSection(3)">Continue <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
+
+            <div class="btn-row">
+                <button type="button" class="btn btn-secondary" onclick="prevSection(3)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Back
+                </button>
+                <button type="button" class="btn btn-primary" onclick="nextSection(3)">
+                    Continue
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </div>
         </section>
+
+        <!-- Section 4: Comments & Submit -->
         <section class="section" id="section4">
             <div class="section-eyebrow">Step 4</div>
             <h2 class="section-title">Additional Information</h2>
+            
             <div class="card">
-                <div class="card-label">Issues or Concerns <span class="optional-tag">Optional</span></div>
+                <div class="card-label">
+                    Issues or Concerns <span class="optional-tag">Optional</span>
+                </div>
                 <div class="card-hint">Report any kashrus issues, problems encountered, or concerns</div>
                 <textarea id="issues" placeholder="Describe any issues..."></textarea>
             </div>
+
             <div class="card">
-                <div class="card-label">General Comments <span class="optional-tag">Optional</span></div>
+                <div class="card-label">
+                    General Comments <span class="optional-tag">Optional</span>
+                </div>
                 <textarea id="comments" placeholder="Any additional notes or comments..."></textarea>
             </div>
-            <div class="submit-error" id="submitError">There was a problem submitting. Please try again or contact KLBD.</div>
-            <div class="btn-row"><button type="button" class="btn btn-secondary" onclick="prevSection(4)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back</button><button type="button" class="btn btn-primary" onclick="submitForm()">Submit Report <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button></div>
+
+            <div class="submit-error" id="submitError">
+                There was a problem submitting. Please try again or contact KLBD.
+            </div>
+
+            <div class="btn-row">
+                <button type="button" class="btn btn-secondary" onclick="prevSection(4)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Back
+                </button>
+                <button type="button" class="btn btn-primary" onclick="submitForm()">
+                    Submit Report
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                    </svg>
+                </button>
+            </div>
         </section>
+
+        <!-- Success Screen -->
         <div class="success-screen" id="successScreen">
-            <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg></div>
+            <div class="success-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M9 12l2 2 4-4"/>
+                </svg>
+            </div>
             <h2 class="success-title">Report Submitted</h2>
             <p class="success-message">Your daily inspection report has been recorded successfully.</p>
-            <div class="summary-box"><h4>Submission Summary</h4><div id="summaryContent"></div></div>
-            <button type="button" class="btn btn-new" onclick="resetForm()">Submit Another Report</button>
+            
+            <div class="summary-box">
+                <h4>Submission Summary</h4>
+                <div id="summaryContent"></div>
+            </div>
+
+            <button type="button" class="btn btn-new" onclick="resetForm()">
+                Submit Another Report
+            </button>
         </div>
     </main>
-    <div class="submitting-overlay" id="submittingOverlay"><div class="spinner"></div><div class="submitting-text">Submitting your report...</div></div>
-    <footer class="footer"><div class="footer-content"><p class="footer-text">KLBD Kashrut Division &bull; <a href="https://kosher.org.uk" class="footer-link" target="_blank">kosher.org.uk</a></p></div></footer>
+
+    <!-- Submitting Overlay -->
+    <div class="submitting-overlay" id="submittingOverlay">
+        <div class="spinner"></div>
+        <div class="submitting-text">Submitting your report...</div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">
+                KLBD Kashrut Division &bull; 
+                <a href="https://kosher.org.uk" class="footer-link" target="_blank">kosher.org.uk</a>
+            </p>
+        </div>
+    </footer>
+
     <script>
+        // ============================================
+        // CONFIGURATION
+        // ============================================
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzP4TnPdUgAvBG0d5iaYeZ7CvxOB97_kEJJfhacZAOpHSsrfKVnNcnkLw-81dfN_7akmQ/exec';
+
         const TOTAL_SECTIONS = 4;
         let currentSection = 1;
+
+        // Establishments by inspector
         const establishmentsByInspector = {
-            'Rabbi Hillel Gruber': ['Allenby Market', 'Bonjour Bread', 'Brown Bear Bakery', 'Burger Bar (Glatt Meat)', 'Cake Street', "Charlotte's Sourdough", 'Crème de la Crème', "Georgia's Kitchen & Deli", 'Grunhut Confeetti by Keshet', 'Hendon Bagel Bakery', 'Jewish Care', 'Jewish Futures Trust (JFT)', 'Kaifeng', 'Komeals Kitchen', 'Kun Mor George Kiss Home', 'Mana Deli', 'Mother to Mother', 'Mr Baker', 'Omi Sushi', 'Parkway Patisserie', 'Portoberry', 'Sushi Haven (Hendon)', 'Tapuach', 'The Bagel Place'],
-            'Rabbi Michael Kedourie': ["Ayelet's Luxury Delicatessen", 'Bagels Bar (Dairy)', 'Bagels Bar Grill House (Glatt)', 'Beit Cafe', 'Booya Gelato', 'Carmelli', 'CoCo Bakery', 'Cohen Bakery', 'Domo', "Eli's Pizza (Dairy) Branch", 'Equal (Kisharon)', 'Fresh to your Door', 'Grodzinski Golders Green', 'Hummus Bar', 'Hummus Bar Hendon', 'Kosher Deli (GG)', 'Kosher Kingdom', 'La Brioche', "Leon's Fruit Shop", 'Leveyuson', "Menachem's", 'Munch & Crunch', 'Novellino (Dairy)', 'Novellino Bistro', 'Pour Toi Artisan Chocolatier', "Sami's (Glatt Meat)", 'Slice', 'Surfin Poke', 'Sushi Haven', 'Taboon (Dairy)', 'TukTuk', 'White Fish', 'White House Express'],
-            'Rabbi Shlomo Katanka': ['1070 Kitchen', 'Balagan', "Eli's Pizza (Dairy) Branch", 'Grodz of Edgware', 'Just Baked', 'Just Kosher', 'Kosher Deli (Borehamwood)', 'Kosher Deli (Edgware)', "Kosher Edge (formerly Mendy's)", 'La Brioche', 'Nat Jacobs', 'Parkway Patisserie', 'Pumpernicks (Dairy)', 'Rodo Meats', 'Sababa', "Sami's (Glatt Meat) Edgware", "Sharon's Bakery", 'Sushi Haven (within Hadar)', 'Yofi', "Yossi's Bakery"],
-            'Rabbi Avromi Kahan': ['1070 Kitchen', 'Balagan', "Eli's Pizza (Dairy) Branch", 'Grodz of Edgware', 'Just Baked', 'Just Kosher', 'Kosher Deli (Borehamwood)', 'Kosher Deli (Edgware)', "Kosher Edge (formerly Mendy's)", 'La Brioche', 'Nat Jacobs', 'Parkway Patisserie', 'Pumpernicks (Dairy)', 'Rodo Meats', 'Sababa', "Sami's (Glatt Meat) Edgware", "Sharon's Bakery", 'Sushi Haven (within Hadar)', 'Yofi', "Yossi's Bakery"],
-            'Rabbi AR Cohen': ['Alpine Frozen Desserts', 'Balady', 'Charedi Dairies Co.', 'Cheffmans', 'Daniels Bakery', "Goldman's Delights", 'Goldstein Salmon Curers', "Habiba's Smokehouse", 'Indulge', 'Kasa Bar & Grill', 'Kosher Deli (Temple Fortune)', 'Moss & Maple', 'Novelino Brighton', "Perele's Cakes", 'Renbake Patisserie', 'S Schwartz', 'Snowcrest', 'So Real Branch', 'Swizl', 'Tasti Pizza (Dairy)', 'Tish', 'Tony Page Marylebone', 'Tuv Taam / Tasti Pizza', 'Woodberry Down (Commercial)'],
-            'Rabbi Hillel Simon': ['Alpine Frozen Desserts', 'Balady', 'Charedi Dairies Co.', 'Cheffmans', 'Daniels Bakery', "Goldman's Delights", 'Goldstein Salmon Curers', "Habiba's Smokehouse", 'Indulge', 'Kasa Bar & Grill', 'Kosher Deli (Temple Fortune)', 'Moss & Maple', 'Novelino Brighton', "Perele's Cakes", 'Renbake Patisserie', 'S Schwartz', 'Snowcrest', 'So Real Branch', 'Swizl', 'Tasti Pizza (Dairy)', 'Tish', 'Tony Page Marylebone', 'Tuv Taam / Tasti Pizza', 'Woodberry Down (Commercial)'],
-            'Rabbi Elie Schoemann': ['Fruit & Veg Direct', 'Fruit2Go', "Jewish Care Holocaust Survivors' Centre", 'Jewish Care Otto Schiff Care Home', 'Jewish Care Selig Court Restaurant', 'Michael Sobell Jewish Community Centre', 'DDs Sandwiches', 'Hermolis & Co.', 'Immanuel College', 'Jewish Care Kosher Deli', 'Nightingale', 'Walnut Tree'],
+            'Rabbi Hillel Gruber': [
+                'Allenby Market', 'Bonjour Bread', 'Brown Bear Bakery', 'Burger Bar (Glatt Meat)',
+                'Cake Street', "Charlotte's Sourdough", 'Crème de la Crème', "Georgia's Kitchen & Deli",
+                'Grunhut Confeetti by Keshet', 'Hendon Bagel Bakery', 'Jewish Care', 'Jewish Futures Trust (JFT)',
+                'Kaifeng', 'Komeals Kitchen', 'Kun Mor George Kiss Home', 'Mana Deli', 'Mother to Mother',
+                'Mr Baker', 'Omi Sushi', 'Parkway Patisserie', 'Portoberry', 'Sushi Haven (Hendon)',
+                'Tapuach', 'The Bagel Place'
+            ],
+            'Rabbi Michael Kedourie': [
+                "Ayelet's Luxury Delicatessen", 'Bagels Bar (Dairy)', 'Bagels Bar Grill House (Glatt)',
+                'Beit Cafe', 'Booya Gelato', 'Carmelli', 'CoCo Bakery', 'Cohen Bakery', 'Domo',
+                "Eli's Pizza (Dairy) Branch", 'Equal (Kisharon)', 'Fresh to your Door',
+                'Grodzinski Golders Green', 'Hummus Bar', 'Hummus Bar Hendon', 'Kosher Deli (GG)',
+                'Kosher Kingdom', 'La Brioche', "Leon's Fruit Shop", 'Leveyuson', "Menachem's",
+                'Munch & Crunch', 'Novellino (Dairy)', 'Novellino Bistro', 'Pour Toi Artisan Chocolatier',
+                "Sami's (Glatt Meat)", 'Slice', 'Surfin Poke', 'Sushi Haven', 'Taboon (Dairy)',
+                'TukTuk', 'White Fish', 'White House Express'
+            ],
+            'Rabbi Shlomo Katanka': [
+                '1070 Kitchen', 'Balagan', "Eli's Pizza (Dairy) Branch", 'Grodz of Edgware',
+                'Just Baked', 'Just Kosher', 'Kosher Deli (Borehamwood)', 'Kosher Deli (Edgware)',
+                "Kosher Edge (formerly Mendy's)", 'La Brioche', 'Nat Jacobs', 'Parkway Patisserie',
+                'Pumpernicks (Dairy)', 'Rodo Meats', 'Sababa', "Sami's (Glatt Meat) Edgware",
+                "Sharon's Bakery", 'Sushi Haven (within Hadar)', 'Yofi', "Yossi's Bakery"
+            ],
+            'Rabbi Avromi Kahan': [
+                '1070 Kitchen', 'Balagan', "Eli's Pizza (Dairy) Branch", 'Grodz of Edgware',
+                'Just Baked', 'Just Kosher', 'Kosher Deli (Borehamwood)', 'Kosher Deli (Edgware)',
+                "Kosher Edge (formerly Mendy's)", 'La Brioche', 'Nat Jacobs', 'Parkway Patisserie',
+                'Pumpernicks (Dairy)', 'Rodo Meats', 'Sababa', "Sami's (Glatt Meat) Edgware",
+                "Sharon's Bakery", 'Sushi Haven (within Hadar)', 'Yofi', "Yossi's Bakery"
+            ],
+            'Rabbi AR Cohen': [
+                'Alpine Frozen Desserts', 'Balady', 'Charedi Dairies Co.', 'Cheffmans',
+                'Daniels Bakery', "Goldman's Delights", 'Goldstein Salmon Curers', "Habiba's Smokehouse",
+                'Indulge', 'Kasa Bar & Grill', 'Kosher Deli (Temple Fortune)', 'Moss & Maple',
+                'Novelino Brighton', "Perele's Cakes", 'Renbake Patisserie', 'S Schwartz', 'Snowcrest',
+                'So Real Branch', 'Swizl', 'Tasti Pizza (Dairy)', 'Tish', 'Tony Page Marylebone',
+                'Tuv Taam / Tasti Pizza', 'Woodberry Down (Commercial)'
+            ],
+            'Rabbi Hillel Simon': [
+                'Alpine Frozen Desserts', 'Balady', 'Charedi Dairies Co.', 'Cheffmans',
+                'Daniels Bakery', "Goldman's Delights", 'Goldstein Salmon Curers', "Habiba's Smokehouse",
+                'Indulge', 'Kasa Bar & Grill', 'Kosher Deli (Temple Fortune)', 'Moss & Maple',
+                'Novelino Brighton', "Perele's Cakes", 'Renbake Patisserie', 'S Schwartz', 'Snowcrest',
+                'So Real Branch', 'Swizl', 'Tasti Pizza (Dairy)', 'Tish', 'Tony Page Marylebone',
+                'Tuv Taam / Tasti Pizza', 'Woodberry Down (Commercial)'
+            ],
+            'Rabbi Elie Schoemann': [
+                'Fruit & Veg Direct', 'Fruit2Go', "Jewish Care Holocaust Survivors' Centre",
+                'Jewish Care Otto Schiff Care Home', 'Jewish Care Selig Court Restaurant',
+                'Michael Sobell Jewish Community Centre', 'DDs Sandwiches', 'Hermolis & Co.',
+                'Immanuel College', 'Jewish Care Kosher Deli', 'Nightingale', 'Walnut Tree'
+            ],
             'Other': []
         };
-        function updateProgress() { const progress = ((currentSection - 1) / (TOTAL_SECTIONS - 1)) * 100; document.getElementById('progressBar').style.width = progress + '%'; document.getElementById('progressLabel').textContent = 'Step ' + currentSection + ' of ' + TOTAL_SECTIONS; }
-        function showSection(num) { document.querySelectorAll('.section').forEach(s => s.classList.remove('active')); document.getElementById('section' + num).classList.add('active'); currentSection = num; updateProgress(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-        function nextSection(from) { if (from === 1) { const inspector = document.querySelector('input[name="inspector"]:checked'); if (!inspector) { alert('Please select your name to continue.'); return; } populateEstablishments(inspector.value); } if (from === 3) { const startTime = document.getElementById('startTime').value; const endTime = document.getElementById('endTime').value; if (!startTime || !endTime) { alert('Please enter your start and end times.'); return; } } showSection(from + 1); }
-        function prevSection(from) { showSection(from - 1); }
-        function populateEstablishments(inspector) { const grid = document.getElementById('establishmentsGrid'); const establishments = establishmentsByInspector[inspector] || []; if (establishments.length === 0) { grid.innerHTML = '<p style="color: var(--color-text-light); font-size: 0.875rem;">Please enter establishments in the "Other" field below.</p>'; return; } grid.innerHTML = establishments.map((est, i) => '<label class="checkbox-option"><input type="checkbox" name="establishment" value="' + est + '"><span class="checkbox-label">' + est + '</span></label>').join(''); }
-        function submitForm() { const inspector = document.querySelector('input[name="inspector"]:checked'); if (!inspector) { alert('Please select an inspector.'); return; } const establishments = Array.from(document.querySelectorAll('input[name="establishment"]:checked')).map(cb => cb.value); const otherEstablishments = document.getElementById('otherEstablishments').value.trim(); const allEstablishments = [...establishments]; if (otherEstablishments) { allEstablishments.push(otherEstablishments); } const data = { timestamp: new Date().toISOString(), date: new Date().toLocaleDateString('en-GB'), name: inspector.value, email: document.getElementById('email').value || '', establishments: allEstablishments.join(', '), startTime: document.getElementById('startTime').value, endTime: document.getElementById('endTime').value, breaks: document.getElementById('breaks').value, mileage: document.getElementById('mileage').value || '0', issues: document.getElementById('issues').value || '', comments: document.getElementById('comments').value || '' }; document.getElementById('submittingOverlay').classList.add('active'); fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).then(() => { showSuccess(data); }).catch(err => { console.error('Submit error:', err); document.getElementById('submittingOverlay').classList.remove('active'); document.getElementById('submitError').style.display = 'block'; }); }
-        function showSuccess(data) { document.getElementById('submittingOverlay').classList.remove('active'); document.querySelectorAll('.section').forEach(s => s.classList.remove('active')); document.querySelector('.progress-wrap').style.display = 'none'; const summary = '<p style="margin-bottom: 8px;"><strong>Inspector:</strong> ' + data.name + '</p><p style="margin-bottom: 8px;"><strong>Date:</strong> ' + data.date + '</p><p style="margin-bottom: 8px;"><strong>Time:</strong> ' + data.startTime + ' - ' + data.endTime + '</p><p><strong>Establishments:</strong> ' + (data.establishments || 'None listed') + '</p>'; document.getElementById('summaryContent').innerHTML = summary; document.getElementById('successScreen').style.display = 'block'; window.scrollTo({ top: 0, behavior: 'smooth' }); }
-        function resetForm() { location.reload(); }
+
+        // ============================================
+        // NAVIGATION
+        // ============================================
+        function updateProgress() {
+            const progress = ((currentSection - 1) / (TOTAL_SECTIONS - 1)) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('progressLabel').textContent = `Step ${currentSection} of ${TOTAL_SECTIONS}`;
+        }
+
+        function showSection(num) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById('section' + num).classList.add('active');
+            currentSection = num;
+            updateProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextSection(from) {
+            // Validation
+            if (from === 1) {
+                const inspector = document.querySelector('input[name="inspector"]:checked');
+                if (!inspector) {
+                    alert('Please select your name to continue.');
+                    return;
+                }
+                populateEstablishments(inspector.value);
+            }
+            
+            if (from === 3) {
+                const startTime = document.getElementById('startTime').value;
+                const endTime = document.getElementById('endTime').value;
+                if (!startTime || !endTime) {
+                    alert('Please enter your start and end times.');
+                    return;
+                }
+            }
+
+            showSection(from + 1);
+        }
+
+        function prevSection(from) {
+            showSection(from - 1);
+        }
+
+        // ============================================
+        // ESTABLISHMENTS
+        // ============================================
+        function populateEstablishments(inspector) {
+            const grid = document.getElementById('establishmentsGrid');
+            const establishments = establishmentsByInspector[inspector] || [];
+            
+            if (establishments.length === 0) {
+                grid.innerHTML = '<p style="color: var(--color-text-light); font-size: 0.875rem;">Please enter establishments in the "Other" field below.</p>';
+                return;
+            }
+
+            grid.innerHTML = establishments.map((est, i) => `
+                <label class="checkbox-option">
+                    <input type="checkbox" name="establishment" value="${est}">
+                    <span class="checkbox-label">${est}</span>
+                </label>
+            `).join('');
+        }
+
+        // ============================================
+        // FORM SUBMISSION
+        // ============================================
+        function submitForm() {
+            const inspector = document.querySelector('input[name="inspector"]:checked');
+            if (!inspector) {
+                alert('Please select an inspector.');
+                return;
+            }
+
+            // Gather data
+            const establishments = Array.from(document.querySelectorAll('input[name="establishment"]:checked'))
+                .map(cb => cb.value);
+            const otherEstablishments = document.getElementById('otherEstablishments').value.trim();
+            
+            const allEstablishments = [...establishments];
+            if (otherEstablishments) {
+                allEstablishments.push(otherEstablishments);
+            }
+
+            const data = {
+                timestamp: new Date().toISOString(),
+                date: new Date().toLocaleDateString('en-GB'),
+                name: inspector.value,
+                email: document.getElementById('email').value || '',
+                establishments: allEstablishments.join(', '),
+                startTime: document.getElementById('startTime').value,
+                endTime: document.getElementById('endTime').value,
+                breaks: document.getElementById('breaks').value,
+                mileage: document.getElementById('mileage').value || '0',
+                issues: document.getElementById('issues').value || '',
+                comments: document.getElementById('comments').value || ''
+            };
+
+            // Show overlay
+            document.getElementById('submittingOverlay').classList.add('active');
+
+            // Submit
+            fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(() => {
+                showSuccess(data);
+            })
+            .catch(err => {
+                console.error('Submit error:', err);
+                document.getElementById('submittingOverlay').classList.remove('active');
+                document.getElementById('submitError').style.display = 'block';
+            });
+        }
+
+        function showSuccess(data) {
+            document.getElementById('submittingOverlay').classList.remove('active');
+            
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelector('.progress-wrap').style.display = 'none';
+            
+            // Build summary
+            const summary = `
+                <p style="margin-bottom: 8px;"><strong>Inspector:</strong> ${data.name}</p>
+                <p style="margin-bottom: 8px;"><strong>Date:</strong> ${data.date}</p>
+                <p style="margin-bottom: 8px;"><strong>Time:</strong> ${data.startTime} - ${data.endTime}</p>
+                <p><strong>Establishments:</strong> ${data.establishments || 'None listed'}</p>
+            `;
+            document.getElementById('summaryContent').innerHTML = summary;
+            
+            // Show success
+            document.getElementById('successScreen').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function resetForm() {
+            location.reload();
+        }
+
+        // Initialize
         updateProgress();
     </script>
 </body>
